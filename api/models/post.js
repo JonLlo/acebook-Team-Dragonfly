@@ -27,4 +27,4 @@ const Comment = mongoose.model("Comment", CommentSchema);
 const dateTimeString = new Date().toLocaleString("en-GB");
 new Post({ postContent: `Test message, created at ${dateTimeString}` }).save();
 
-module.exports = {Post, Comment};
+module.exports = Post;
