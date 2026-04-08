@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema(
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     notificationsArray: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], //Might not be used
   },
-  { timeStamps: { createdAt: true }, updatedAt: true },
+  { timestamps: true },
 );
 
 const User = mongoose.model("User", UserSchema);
