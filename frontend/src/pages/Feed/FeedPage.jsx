@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post";
+import PostList from "../../components/PostList";
 import LogoutButton from "../../components/LogoutButton";
 
 export function FeedPage() {
