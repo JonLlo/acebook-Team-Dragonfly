@@ -39,6 +39,7 @@ export function FeedPage() {
           <Post post={post} key={post._id} />
         ))}
       </div>
+      <PostList />
       <LogoutButton />
     </>
   );
