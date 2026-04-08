@@ -21,9 +21,9 @@ It's recommended you all read the suggested docs _after making sure the whole
 setup below worked for everyone_. Then work together on a diagram describing how
 the application works.
 
-### Card wall
+### Card wall (trello)
 
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
+https://trello.com/b/JQa7wD1l/acebook-team-dragonfly
 
 ### Quickstart
 
