@@ -11,6 +11,10 @@ const Post = (props) => {
 
 
 const handleLikeToggle = async () => {
+
+  console.log("TOGGGLE")
+  console.log(youLike)
+
   const token = localStorage.getItem("token"); 
   
   if (!token) {
@@ -18,17 +22,17 @@ const handleLikeToggle = async () => {
     return; 
   }
 
-  const newLikeStatus = !youLike;
+  // const newLikeStatus = youLike ? !youLike : youLike
   
-  setYouLike(newLikeStatus);
-  setLikesCount(newLikeStatus ? likesCount + 1 : likesCount - 1);
+    setYouLike(!youLike);
+    setLikesCount(youLike ? likesCount -1 : likesCount + 1);
 
   try {
     await updatePostLike(props._id, newLikeStatus, token); 
     console.log("Database updated successfully");
   } catch (err) {
     setYouLike(!newLikeStatus);
-    setLikesCount(youLike ? likesCount + 1 : likesCount - 1);
+    setLikesCount(youLike ? likesCount : likesCount + 1);
     console.error("Failed to save like:", err);
   }
 };
