@@ -5,8 +5,28 @@ import { getPosts } from "../../services/posts";
 import Post from "../../components/Post";
 import LogoutButton from "../../components/LogoutButton";
 
+
 export function FeedPage() {
-  const [posts, setPosts] = useState([]);
+
+  let hardcoded_post = {
+
+  postContent: "this is a post",
+  authorImage: "../public/images/defaultAvatar",
+  comments: {"com_test": "com_test2"},
+  likes: {"like_test": "like_test2"},
+}
+  let hardcoded_post_2 = {
+
+  postContent: "this is a post",
+  authorImage: "../public/images/defaultAvatar",
+  comments: {"com_test": "com_test2"},
+  likes: {"like_test": "like_test2"},
+}
+
+
+  const [posts, setPosts] = useState([hardcoded_post,hardcoded_post_2]);
+  console.log(`HERE POSTS:` +  posts)
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,14 +52,32 @@ export function FeedPage() {
   }
 
   return (
+  
     <>
       <h2>Posts</h2>
-      <div className="feed" role="feed">
+      {/* <div className="feed" role="feed">
         {posts.map((post) => (
+          console.log(`HERE POSTS 2:` +  posts)
+          
+  
           // Only render the Post component if there is actually content
-          post.content ? <Post {...post} key={post._id} /> : null
+          //post.content ? <Post {...post} key={post._id} /> : null
+          
         ))}
-      </div>
+      </div> */}
+
+
+      <div className="feed" role="feed">
+      {posts.map((post, index) => {
+        console.log("HERE POSTS 2:", posts);
+
+        // Only render the Post component if there is actually content
+        return post.postContent ? (
+          <Post {...post} key={index} />
+        ) : null;
+      })}
+    </div>
+
       {/* <PostList /> */}
       <LogoutButton />
     </>
