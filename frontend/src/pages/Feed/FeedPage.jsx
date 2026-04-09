@@ -8,24 +8,24 @@ import LogoutButton from "../../components/LogoutButton";
 
 export function FeedPage() {
 
-  let hardcoded_post = {
+//   let hardcoded_post = {
 
-  postContent: "this is a post",
-  authorImage: "../public/images/defaultAvatar",
-  comments: {"com_test": "com_test2"},
-  likes: {"like_test": "like_test2"},
-}
-  let hardcoded_post_2 = {
+//   postContent: "this is a post",
+//   authorImage: "../public/images/defaultAvatar",
+//   comments: {"com_test": "com_test2"},
+//   likes: {"like_test": "like_test2"},
+// }
+//   let hardcoded_post_2 = {
 
-  postContent: "this is a post",
-  authorImage: "../public/images/defaultAvatar",
-  comments: {"com_test": "com_test2"},
-  likes: {"like_test": "like_test2"},
-}
+//   postContent: "this is a post",
+//   authorImage: "../public/images/defaultAvatar",
+//   comments: {"com_test": "com_test2"},
+//   likes: {"like_test": "like_test2"},
+// }
 
 
-  const [posts, setPosts] = useState([hardcoded_post,hardcoded_post_2]);
-  console.log(`HERE POSTS:` +  posts)
+  const [posts, setPosts] = useState([]);
+  //console.log(`HERE! POSTS:` +  posts)
   
   const navigate = useNavigate();
 
@@ -51,25 +51,33 @@ export function FeedPage() {
     return;
   }
 
+
+
+
+
   return (
   
     <>
-      <h2>Posts</h2>
-      {/* <div className="feed" role="feed">
-        {posts.map((post) => (
-          console.log(`HERE POSTS 2:` +  posts)
-          
+      <h2>Posts!!!</h2>
   
-          // Only render the Post component if there is actually content
-          //post.content ? <Post {...post} key={post._id} /> : null
-          
-        ))}
-      </div> */}
-
 
       <div className="feed" role="feed">
       {posts.map((post, index) => {
-        console.log("HERE POSTS 2:", posts);
+        //console.log("HERE POSTS 2:", posts);
+        console.log("INDEX: " + index + " POST: " + post.postContent);
+        console.log("LIKES " + post.likes);
+
+
+
+
+
+          //fetch request fetching the count and the status of youLike. need to send the token and the
+        // parameter: post_id 
+        // token : user_id in the header
+
+
+
+        
 
         // Only render the Post component if there is actually content
         return post.postContent ? (
