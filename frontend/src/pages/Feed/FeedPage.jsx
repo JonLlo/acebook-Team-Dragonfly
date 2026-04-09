@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post";
-import PostList from "../../components/PostList";
 import LogoutButton from "../../components/LogoutButton";
 
 export function FeedPage() {
@@ -37,10 +36,11 @@ export function FeedPage() {
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post post={post} key={post._id} />
+          // Only render the Post component if there is actually content
+          post.content ? <Post {...post} key={post._id} /> : null
         ))}
       </div>
-      <PostList />
+      {/* <PostList /> */}
       <LogoutButton />
     </>
   );

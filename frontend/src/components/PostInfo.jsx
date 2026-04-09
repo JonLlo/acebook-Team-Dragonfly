@@ -4,29 +4,40 @@
 
 
 
+// PostInfo.jsx
 const PostInfo = (props) => {
   return (
     <div className="aPost">
-      <p className="postId">{props.id}</p>
-      <p className="authorId">{props.authorId}</p>
-      <p className="authorName">{props.authorName}</p>
+      <h3 className="authorName">{props.authorName}</h3>
       <p className="postContent">{props.content}</p>
-      <img className = "postImg" src = {props.img}/>
-
-      <button onClick={props.youLike}>
-        {props.youLike ? "❤️ Liked" : " HELLO Like"}
-
-      </button>
-      <p className="comments">{props.comments}</p>
-      <p className="datetime">{props.datetime}</p>
-
-
+      {props.img && <img className="postImg" src={props.img} alt="Post content" />}
+      <p className="datetime"><small>{props.datetime}</small></p>
     </div>
-  )
-}
-
+  );
+};
 
 export default PostInfo;
+
+// const PostInfo = (props) => {
+//   return (
+//     <div className="aPost">
+//       <p className="postId">{props.id}</p>
+//       <p className="authorId">{props.authorId}</p>
+//       <p className="authorName">{props.authorName}</p>
+//       <p className="postContent">{props.content}</p>
+//       <img className = "postImg" src = {props.img}/>
+
+//       <button onClick={props.youLike}>
+// {props.youLike ? "❤️ Liked" : " HELLO Like"}
+
+// </button>
+//       <p className="comments">{props.comments}</p>
+//       <p className="datetime">{props.datetime}</p>
+
+
+//     </div>
+//   )
+// }
 
 
 
