@@ -1,13 +1,23 @@
 import { useState } from "react";
 import LikeButton from "./LikeButton";
 import PostInfo from "./PostInfo";
+import CommentList from "./CommentList";
 
 
 // Post.jsx
 const Post = (props) => {
+  
 
-  const [youLike, setYouLike] = useState(false);
+  const [youLike, setYouLike] = useState(props.youLike); //need to get this from backend!!
   const [likesCount, setLikesCount] = useState(props.likes?.length || 0);
+
+  const [comments, setComments] = useState(props.comments || []);
+  
+
+
+
+
+
 
 
 const handleLikeToggle = async () => {
@@ -26,15 +36,16 @@ const handleLikeToggle = async () => {
   
     setYouLike(!youLike);
     setLikesCount(youLike ? likesCount -1 : likesCount + 1);
+  
 
-  try {
-    await updatePostLike(props._id, newLikeStatus, token); 
-    console.log("Database updated successfully");
-  } catch (err) {
-    setYouLike(!newLikeStatus);
-    setLikesCount(youLike ? likesCount : likesCount + 1);
-    console.error("Failed to save like:", err);
-  }
+  // try {
+  //   await updatePostLike(props._id, newLikeStatus, token); 
+  //   console.log("Database updated successfully");
+  // } catch (err) {
+  //   setYouLike(!newLikeStatus);
+  //   setLikesCount(youLike ? likesCount : likesCount + 1);
+  //   console.error("Failed to save like:", err);
+  // }
 };
 
   return (
@@ -50,9 +61,18 @@ const handleLikeToggle = async () => {
         <LikeButton youLike={youLike} ToggleYouLike={handleLikeToggle} />
         <span>{likesCount} Likes</span>
       </div>
+
+       <div className="comments-section">
+        <CommentList comments={comments}/>       
+         </div> 
+  
+
+
     </div>
   );
 };
+
+
 
 // const Post = (props) => {
   
