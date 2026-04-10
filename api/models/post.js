@@ -2,32 +2,37 @@ const mongoose = require("mongoose");
 
 // A Schema defines the "shape" of entries in a collection. This is similar to
 // defining the columns of an SQL Database.
-const PostSchema = new mongoose.Schema({
-  authorId: {type: mongoose.Schema.Types.ObjectId, ref:"User"},
-  postContent: {type: String, required: true},
-  postImage: { 
+const PostSchema = new mongoose.Schema(
+  {
+    authorId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    postContent: { type: String, required: true },
+    postImage: {
       type: String,
 
-      get: (v)=> {
-        if(!v) return null;
-        return v.startsWith(imageURL) ? v : `${imageURL}${v}`}, 
-    }, 
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
-  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  }, 
+      get: (v) => {
+        if (!v) return null;
+        if (typeof imageURL === "undefined") return v; //This was added to try and stop the error "Uncaught ReferenceError: require is not defined"
+        return v.startsWith(imageURL) ? v : `${imageURL}${v}`;
+      },
+    },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  },
   {
     timestamps: true,
-    toJSON:{getters:true},
-    toObject:{ getters:true},
-  }
+    toJSON: { getters: true },
+    toObject: { getters: true },
+  },
 );
 
-const CommentSchema = new mongoose.Schema({
-authorId: {type: mongoose.Schema.Types.ObjectId, ref:"User"},
-commentContent: {type: String},
-postId: {type: mongoose.Schema.Types.ObjectId, ref:"Post"}
-},
-{timestamps:true})
+const CommentSchema = new mongoose.Schema(
+  {
+    authorId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    commentContent: { type: String },
+    postId: { type: mongoose.Schema.Types.ObjectId, ref: "Post" },
+  },
+  { timestamps: true },
+);
 
 // We use the Schema to create the Post model. Models are classes which we can
 // use to construct entries in our Database.
@@ -39,4 +44,4 @@ const Comment = mongoose.model("Comment", CommentSchema);
 // const dateTimeString = new Date().toLocaleString("en-GB");
 // new Post({ postContent: `Test message, created at ${dateTimeString}` }).save();
 
-module.exports = {Post, Comment};
+module.exports = { Post, Comment };
