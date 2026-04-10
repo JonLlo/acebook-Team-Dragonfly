@@ -1,17 +1,31 @@
 const mongoose = require("mongoose");
+const imageURL = "../public/images";
 
 const UserSchema = new mongoose.Schema(
   {
-    firstName: { type: String, required: false },
-    surname: { type: String, required: false },
-    userImage: { type: String, default: "../public/images/defaultAvatar" }, //Update to correct file path
+    firstName: { type: String, default: null},
+    surname: { type: String, default: null },
+    userImage: { 
+      type: String,
+      default: "defaultAvatar.png",
+      get: (v) => {
+      if (!v) return `${imageURL}defaultAvatar.png`;
+      if (v.startsWith(imageURL)) return v;
+      return `${imageURL}${v}`;
+ },
+
+    }, 
     userBiography: { type: String, required: false },
     email: { type: String, required: true },
     password: { type: String, required: true },
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     notificationsArray: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], //Might not be used
   },
-  { timestamps: true },
+  {
+    timestamps: true ,
+    toJSON:{getters:true},
+    toObject:{ getters:true},
+  }
 );
 
 const User = mongoose.model("User", UserSchema);
