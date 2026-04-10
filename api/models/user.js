@@ -3,18 +3,17 @@ const imageURL = "../public/images";
 
 const UserSchema = new mongoose.Schema(
   {
-    firstName: { type: String, default: null},
+    firstName: { type: String, default: null },
     surname: { type: String, default: null },
-    userImage: { 
+    userImage: {
       type: String,
       default: "defaultAvatar.png",
       get: (v) => {
-      if (!v) return `${imageURL}defaultAvatar.png`;
-      if (v.startsWith(imageURL)) return v;
-      return `${imageURL}${v}`;
- },
-
-    }, 
+        if (!v) return `${imageURL}defaultAvatar.png`;
+        if (v.startsWith(imageURL)) return v;
+        return `${imageURL}${v}`;
+      },
+    },
     userBiography: { type: String, required: false },
     email: { type: String, required: true },
     password: { type: String, required: true },
@@ -22,10 +21,10 @@ const UserSchema = new mongoose.Schema(
     notificationsArray: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], //Might not be used
   },
   {
-    timestamps: true ,
-    toJSON:{getters:true},
-    toObject:{ getters:true},
-  }
+    timestamps: true,
+    toJSON: { getters: true },
+    toObject: { getters: true },
+  },
 );
 
 const User = mongoose.model("User", UserSchema);
