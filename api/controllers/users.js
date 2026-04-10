@@ -1,10 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require('bcrypt');
 
-
-
-
-
 async function create(req, res) {
   try {
     const { email, password: plainTextPassword } = req.body;

@@ -1,5 +1,17 @@
 #root {
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   text-align: center;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  /* 100vh stands for 100% of the Viewport Height */
+  min-height: 100vh; 
+  background-color: #f6f4f0; 
+}
+
+
 

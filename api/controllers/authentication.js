@@ -7,9 +7,6 @@ async function createToken(req, res) {
   const password = req.body.password;
 
   const user = await User.findOne({ email: email });
-
-
-
   try {
     if (!user) {
       console.log("Auth Error: User not found");

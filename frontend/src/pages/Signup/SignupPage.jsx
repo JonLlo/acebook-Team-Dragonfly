@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { signup } from "../../services/authentication";
+import "./SignupPage.css";
 
 export function SignupPage() {
   const [email, setEmail] = useState("");
@@ -58,42 +59,53 @@ export function SignupPage() {
 
   return (
     <>
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="text"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          placeholder="Password"
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
+      <img src="/logo.png" alt="Acebook Logo" style={{ width: '200px', height: 'auto' }}/>
+      <h2>Sign Up</h2>
+      <p><i>Please enter your details below</i></p>
+      <div className="signing-in">
+        <form onSubmit={handleSubmit} className="signup-form">
+          <div className="form-group">
+            <label htmlFor="email">Email: </label>
+            <input
+              id="email"
+              type="text"
+              value={email}
+              onChange={handleEmailChange}
+            />
+          </div>
 
-        {!showPasswordError && error.length > 0 && (
-          <p>{error[0]}</p>
-        )}
-
-        {showPasswordError && (
-        <div>
-          Your password must:
-        <ul>
-          {error.map((message, i) => (
-            <li key={i}>{message}</li>
-          ))}
-        </ul>
+          <div className="form-group">
+            <label htmlFor="password">Password: </label>
+            <input
+              placeholder="Password"
+              id="password"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+          />
         </div>
-        )}
+        <div className="error-space">
+          {!showPasswordError && error.length > 0 && (
+            <p className="error-text">{error[0]}</p>
+          )}
 
+          {showPasswordError && (
+            <div className="password-requirements">
+              <p>Your password must:</p>
+              <ul>
+                {error.map((message, i) => (
+                  <li key={i}>{message}</li>
+                ))}
+              </ul>
+            </div>  
+          )}
+        </div>
 
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
+        <br />
+        <p></p>
+        <input role="submit-button" id="submit" type="submit" value="Create Account" />
       </form>
+    </div>
     </>
   );
 }

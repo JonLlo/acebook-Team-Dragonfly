@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post";
 import LogoutButton from "../../components/LogoutButton";
+import "./FeedPage.css";
 
 
 export function FeedPage() {
@@ -58,7 +59,13 @@ export function FeedPage() {
   return (
   
     <>
-      <h2>Posts!!!</h2>
+    <div className="top-bar">
+      <img src="/small-logo.png" alt="Acebook Small Logo" className="logo-left"/>
+      <LogoutButton />
+    </div>  
+
+    <div className="feed-content">
+      <h2>My Feed</h2>
   
 
       <div className="feed" role="feed">
@@ -84,10 +91,10 @@ export function FeedPage() {
           <Post {...post} key={index} />
         ) : null;
       })}
-    </div>
-
+      </div>
+    </div>  
       {/* <PostList /> */}
-      <LogoutButton />
+
     </>
   );
 }
