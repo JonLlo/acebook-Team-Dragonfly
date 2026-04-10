@@ -18,9 +18,11 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // API Routes
-app.use("/users", usersRouter);
-app.use("/posts", tokenChecker, postsRouter);
+
 app.use("/tokens", authenticationRouter);
+app.use("/users", usersRouter);
+app.use("/posts", postsRouter)
+app.use(tokenChecker);    
 
 // 404 Handler
 app.use((_req, res) => {
