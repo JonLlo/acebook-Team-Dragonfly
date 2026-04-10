@@ -3,14 +3,24 @@ const mongoose = require("mongoose");
 // A Schema defines the "shape" of entries in a collection. This is similar to
 // defining the columns of an SQL Database.
 const PostSchema = new mongoose.Schema({
-  //authorId: {type: mongoose.Schema.Types.ObjectId, ref:"User", required: true},
+  authorId: {type: mongoose.Schema.Types.ObjectId, ref:"User"},
   postContent: {type: String, required: true},
-  authorImage: {type: String, default: "../public/images/defaultAvatar" },
+  postImage: { 
+      type: String,
+
+      get: (v)=> {
+        if(!v) return null;
+        return v.startsWith(imageURL) ? v : `${imageURL}${v}`}, 
+    }, 
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  //YouLike: true/false
-  //
-}, {timestamps: true});
+  }, 
+  {
+    timestamps: true,
+    toJSON:{getters:true},
+    toObject:{ getters:true},
+  }
+);
 
 const CommentSchema = new mongoose.Schema({
 authorId: {type: mongoose.Schema.Types.ObjectId, ref:"User"},
@@ -26,7 +36,7 @@ const Comment = mongoose.model("Comment", CommentSchema);
 
 // These lines will create a test post every time the server starts.
 // You can delete this once you are creating your own posts.
-const dateTimeString = new Date().toLocaleString("en-GB");
-new Post({ postContent: `Test message 1, created at ${dateTimeString}` }).save();
+// const dateTimeString = new Date().toLocaleString("en-GB");
+// new Post({ postContent: `Test message, created at ${dateTimeString}` }).save();
 
-module.exports = Post;
+module.exports = {Post, Comment};
