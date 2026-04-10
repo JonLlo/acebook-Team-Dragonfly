@@ -13,14 +13,11 @@ async function create(req, res) {
 
     console.log("User created, id:", savedUser._id.toString());
     res.status(201).json({ message: "OK" });
-
-  } catch (err) { 
+  } catch (err) {
     console.error("Error in create user:", err);
     res.status(400).json({ message: "Something went wrong" });
   }
 }
-
-
 
 const UsersController = {
   create: create,

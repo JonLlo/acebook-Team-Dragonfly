@@ -6,28 +6,25 @@ import Post from "../../components/Post";
 import LogoutButton from "../../components/LogoutButton";
 import "./FeedPage.css";
 
-
 export function FeedPage() {
+  //   let hardcoded_post = {
 
-//   let hardcoded_post = {
+  //   postContent: "this is a post",
+  //   authorImage: "../public/images/defaultAvatar",
+  //   comments: {"com_test": "com_test2"},
+  //   likes: {"like_test": "like_test2"},
+  // }
+  //   let hardcoded_post_2 = {
 
-//   postContent: "this is a post",
-//   authorImage: "../public/images/defaultAvatar",
-//   comments: {"com_test": "com_test2"},
-//   likes: {"like_test": "like_test2"},
-// }
-//   let hardcoded_post_2 = {
-
-//   postContent: "this is a post",
-//   authorImage: "../public/images/defaultAvatar",
-//   comments: {"com_test": "com_test2"},
-//   likes: {"like_test": "like_test2"},
-// }
-
+  //   postContent: "this is a post",
+  //   authorImage: "../public/images/defaultAvatar",
+  //   comments: {"com_test": "com_test2"},
+  //   likes: {"like_test": "like_test2"},
+  // }
 
   const [posts, setPosts] = useState([]);
   //console.log(`HERE! POSTS:` +  posts)
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,6 +35,9 @@ export function FeedPage() {
         .then((data) => {
           setPosts(data.posts);
           localStorage.setItem("token", data.token);
+          console.log("TOKENTOKEN", data.token)
+          console.log("POSTPOST", data.posts)
+
         })
         .catch((err) => {
           console.error(err);
@@ -52,12 +52,7 @@ export function FeedPage() {
     return;
   }
 
-
-
-
-
   return (
-  
     <>
     <div className="top-bar">
       <img src="/small-logo.png" alt="Acebook Small Logo" className="logo-left"/>
@@ -69,22 +64,15 @@ export function FeedPage() {
   
 
       <div className="feed" role="feed">
-      {posts.map((post, index) => {
-        //console.log("HERE POSTS 2:", posts);
-        console.log("INDEX: " + index + " POST: " + post.postContent);
-        console.log("LIKES " + post.likes);
-
-
-
-
+        {posts.map((post, index) => {
+          console.log(post._id)
+          //console.log("HERE POSTS 2:", posts);
+          console.log("INDEX: " + index + " POST: " + post.postContent);
+          console.log("LIKES " + post.likesCount);
 
           //fetch request fetching the count and the status of youLike. need to send the token and the
-        // parameter: post_id 
-        // token : user_id in the header
-
-
-
-        
+          // parameter: post_id
+          // token : user_id in the header
 
         // Only render the Post component if there is actually content
         return post.postContent ? (

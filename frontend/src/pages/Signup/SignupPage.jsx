@@ -14,11 +14,12 @@ export function SignupPage() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (!email.includes("@")){
-      setError(["Please enter a valid email address."])
+    if (!email.includes("@")) {
+      setError(["Please enter a valid email address."]);
       setPasswordErrorState(false);
       return;
     }
+
 
     //Regex (regular expression) for characters in JS
     //(?=.*[\d]) -> somewhere in the string there must be at least 1 number ([\d])
@@ -26,12 +27,14 @@ export function SignupPage() {
     //[\w!@#$%^&*]{6,16} -> allows letters, digits, underscores and symbols AND sets a length of 8 - 30. [\w] specifies all letters, numbers and underscores
     //?= 'lookaheads' or rules that must be in the string
     //more info "https://stackoverflow.com/questions/12090077/javascript-regular-expression-password-validation-having-special-characters#comment16155037_12090265"
-    if (password.search(/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,30}$/) === -1 ){
+    if (
+      password.search(/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,30}$/) === -1
+    ) {
       setError([
         "Be at least 8 characters long",
         "Include a number",
-        "Include a special character"
-      ])
+        "Include a special character",
+      ]);
       setPasswordErrorState(true);
       return;
     }
