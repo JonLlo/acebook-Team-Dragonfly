@@ -24,10 +24,17 @@ vi.mock("../../src/services/authentication", () => {
 async function completeSignupForm() {
   const user = userEvent.setup();
 
+  const firstNameEl = screen.getByLabelText("First name:");
+  const surnameEl = screen.getByLabelText("Surname:");
+  // const userImageEl = screen.getByLabelText("Profile picture:")
+  const userBiographyEl = screen.getByLabelText("Tell us about yourself:");
   const emailInputEl = screen.getByLabelText("Email:");
   const passwordInputEl = screen.getByLabelText("Password:");
   const submitButtonEl = screen.getByRole("submit-button");
 
+  await user.type(firstNameEl, "Jack");
+  await user.type(surnameEl, "Garner");
+  await user.type(userBiographyEl, "A software engineer");
   await user.type(emailInputEl, "test@email.com");
   await user.type(passwordInputEl, "password1!");
   await user.click(submitButtonEl);
@@ -43,7 +50,14 @@ describe("Signup Page", () => {
 
     await completeSignupForm();
 
-    expect(signup).toHaveBeenCalledWith("test@email.com", "password1!");
+    expect(signup).toHaveBeenCalledWith({
+      firstName: "Jack",
+      surname: "Garner",
+      userImage: "",
+      userBiography: "A software engineer",
+      email: "test@email.com",
+      password: "password1!",
+    });
   });
 
   test("navigates to /login on successful signup", async () => {
@@ -63,55 +77,132 @@ describe("Signup Page", () => {
 
     await completeSignupForm();
 
-    expect(await screen.findByText("Signup failed. Please try again.")).toBeTruthy();
+    expect(
+      await screen.findByText("Signup failed. Please try again."),
+    ).toBeTruthy();
   });
 });
 
-  test("email must be valid", async () => {
-    render(<SignupPage />);
+test("first name must be valid", async () => {
+  render(<SignupPage />);
 
-    const user = userEvent.setup();
+  const user = userEvent.setup();
 
-    const emailInputEl = screen.getByLabelText("Email:");
-    const passwordInputEl = screen.getByLabelText("Password:");
-    const submitButtonEl = screen.getByRole("submit-button");
+  const firstNameEl = screen.getByLabelText("First name:");
+  const surnameEl = screen.getByLabelText("Surname:");
+  // const userImageEl = screen.getByLabelText("Profile picture:")
+  const userBiographyEl = screen.getByLabelText("Tell us about yourself:");
+  const emailInputEl = screen.getByLabelText("Email:");
+  const passwordInputEl = screen.getByLabelText("Password:");
+  const submitButtonEl = screen.getByRole("submit-button");
 
-    await user.type(emailInputEl, "testemail.com");
-    await user.type(passwordInputEl, "password1!");
-    await user.click(submitButtonEl);
+  await user.type(firstNameEl, " ");
+  await user.type(surnameEl, "Garner");
+  await user.type(userBiographyEl, "A software engineer");
+  await user.type(emailInputEl, "testemail.com");
+  await user.type(passwordInputEl, "password1!");
+  await user.click(submitButtonEl);
 
-    expect(await screen.findByText("Please enter a valid email address.")).toBeTruthy();
-  })
+  expect(
+    await screen.findByText("Please enter a valid first name."),
+  ).toBeTruthy();
+});
 
-  test("password must be greater than 8 characters", async () => {
-    render(<SignupPage />);
+test("surname must be valid", async () => {
+  render(<SignupPage />);
 
-    const user = userEvent.setup()
+  const user = userEvent.setup();
 
-    const emailInputEl = screen.getByLabelText("Email:");
-    const passwordInputEl = screen.getByLabelText("Password:");
-    const submitButtonEl = screen.getByRole("submit-button");
+  const firstNameEl = screen.getByLabelText("First name:");
+  const surnameEl = screen.getByLabelText("Surname:");
+  // const userImageEl = screen.getByLabelText("Profile picture:")
+  const userBiographyEl = screen.getByLabelText("Tell us about yourself:");
+  const emailInputEl = screen.getByLabelText("Email:");
+  const passwordInputEl = screen.getByLabelText("Password:");
+  const submitButtonEl = screen.getByRole("submit-button");
 
-    await user.type(emailInputEl, "test@email.com");
-    await user.type(passwordInputEl, "pass");
-    await user.click(submitButtonEl);
-    //If the below line shows an errorr, ignore it. Its a recurring issue that
-    //doesn't affect functionality
-    expect(await screen.findByText("Be at least 8 characters long"));
-  })
+  await user.type(firstNameEl, "Jack");
+  await user.type(surnameEl, " ");
+  await user.type(userBiographyEl, "A software engineer");
+  await user.type(emailInputEl, "testemail.com");
+  await user.type(passwordInputEl, "password1!");
+  await user.click(submitButtonEl);
 
-  test("password must have a digit and special character", async () => {
-    render(<SignupPage />);
+  expect(await screen.findByText("Please enter a valid surname.")).toBeTruthy();
+});
 
-    const user = userEvent.setup()
+test("email must be valid", async () => {
+  render(<SignupPage />);
 
-    const emailInputEl = screen.getByLabelText("Email:");
-    const passwordInputEl = screen.getByLabelText("Password:");
-    const submitButtonEl = screen.getByRole("submit-button");
-    
-    await user.type(emailInputEl, "test@email.com");
-    await user.type(passwordInputEl, "password");
-    await user.click(submitButtonEl);
+  const user = userEvent.setup();
 
-    expect(await screen.findByText("Include a number") || screen.findByText("Include a special character"));
-  })
+  const firstNameEl = screen.getByLabelText("First name:");
+  const surnameEl = screen.getByLabelText("Surname:");
+  // const userImageEl = screen.getByLabelText("Profile picture:")
+  const userBiographyEl = screen.getByLabelText("Tell us about yourself:");
+  const emailInputEl = screen.getByLabelText("Email:");
+  const passwordInputEl = screen.getByLabelText("Password:");
+  const submitButtonEl = screen.getByRole("submit-button");
+
+  await user.type(firstNameEl, "Jack");
+  await user.type(surnameEl, "Garner");
+  await user.type(userBiographyEl, "A software engineer");
+  await user.type(emailInputEl, "testemail.com");
+  await user.type(passwordInputEl, "password1!");
+  await user.click(submitButtonEl);
+
+  expect(
+    await screen.findByText("Please enter a valid email address."),
+  ).toBeTruthy();
+});
+
+test("password must be greater than 8 characters", async () => {
+  render(<SignupPage />);
+
+  const user = userEvent.setup();
+
+  const firstNameEl = screen.getByLabelText("First name:");
+  const surnameEl = screen.getByLabelText("Surname:");
+  // const userImageEl = screen.getByLabelText("Profile picture:")
+  const userBiographyEl = screen.getByLabelText("Tell us about yourself:");
+  const emailInputEl = screen.getByLabelText("Email:");
+  const passwordInputEl = screen.getByLabelText("Password:");
+  const submitButtonEl = screen.getByRole("submit-button");
+
+  await user.type(firstNameEl, "Jack");
+  await user.type(surnameEl, "Garner");
+  await user.type(userBiographyEl, "A software engineer");
+  await user.type(emailInputEl, "test@email.com");
+  await user.type(passwordInputEl, "pass");
+  await user.click(submitButtonEl);
+  //If the below line shows an errorr, ignore it. Its a recurring issue that
+  //doesn't affect functionality
+  // eslint-disable-next-line vitest/valid-expect
+  expect(await screen.findByText("Be at least 8 characters long"));
+});
+
+test("password must have a digit and special character", async () => {
+  render(<SignupPage />);
+
+  const user = userEvent.setup();
+
+  const firstNameEl = screen.getByLabelText("First name:");
+  const surnameEl = screen.getByLabelText("Surname:");
+  // const userImageEl = screen.getByLabelText("Profile picture:")
+  const userBiographyEl = screen.getByLabelText("Tell us about yourself:");
+  const emailInputEl = screen.getByLabelText("Email:");
+  const passwordInputEl = screen.getByLabelText("Password:");
+  const submitButtonEl = screen.getByRole("submit-button");
+
+  await user.type(firstNameEl, "Jack");
+  await user.type(surnameEl, "Garner");
+  await user.type(userBiographyEl, "A software engineer");
+  await user.type(emailInputEl, "test@email.com");
+  await user.type(passwordInputEl, "password");
+  await user.click(submitButtonEl);
+  // eslint-disable-next-line vitest/valid-expect
+  expect(
+    (await screen.findByText("Include a number")) ||
+      screen.findByText("Include a special character"),
+  );
+});
