@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
+const imageURL = "../images/";
 
 // A Schema defines the "shape" of entries in a collection. This is similar to
 // defining the columns of an SQL Database.
 const PostSchema = new mongoose.Schema(
   {
     authorId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    postContent: { type: String, required: true },
+    postContent: { type: String, required: true,  trim:true},
     postImage: {
       type: String,
 
       get: (v) => {
         if (!v) return null;
-        if (typeof imageURL === "undefined") return v; //This was added to try and stop the error "Uncaught ReferenceError: require is not defined"
-        return v.startsWith(imageURL) ? v : `${imageURL}${v}`;
+        return v.startsWith(imageURL) ? v : `${imageURL}${v}`
       },
     },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],

@@ -101,14 +101,19 @@ async function getAllPosts(req, res) {
 async function createPost(req, res) {
   try {
     const postContent = req.body.postContent;
+    const postImage = req.body.postImage;
+    
+
     if (!postContent) {
       return res.status(400).json({
         message: "Post content is required",
       });
     }
     const post = await new Post({
-      postContent,
       authorId: req.user_id,
+      postContent,
+      postImage,
+      
     }).save();
 
     const populatedPost = await Post.findById(post.id).populate(
@@ -215,11 +220,104 @@ async function toggleLike(req, res) {
   }
 }
 
+//A logged in user can delete their own post
+//MongoDB does not implement Cascade
+//When a post is deleted any commemts are left as orphned docs,
+// Need to delete any comments first - won't be a link to access comments through posts if deleted first
+async function deletePost(req,res){
+  const postId = req.params.id;
+  const userId = req.user_id;
+  try {
+   
+    const post = await Post.findById(postId);
+
+    if(!post){
+      return res.status(400).json({message: "Post does not exist"})
+    };
+
+    //check that the post author id is in fact the same as the user ID
+    if(post.authorId.toString() !== userId){
+      return res.status(403).json({message: "Not authorised to delete this post - the post does not belong to you!"})
+    };
+
+    //delete any comments owned by the post
+    await Comment.deleteMany({ postId:postId });
+
+    //delete post
+    await Post.findByIdAndDelete(postId);
+
+    return res.status(200).json({
+      message: "Post successfully deleted",
+      deletedPostId: postId,
+    })
+
+
+  }catch(error){
+    console.error("DELETE POST ERROR", error)
+    return res.status(500).json({
+      message: "Server error deleting post",
+    })
+
+  }
+}
+
+//update Post - content body only
+ async function editPostContent(req,res){
+  try{
+    const postId = req.params.id;
+    const userId = req.user_id;
+    const { postContent } = req.body;
+
+    const post = await Post.findById(postId);
+
+    if(!post){
+      return res.status(404).json({message: "Post does not exist"})
+    }
+
+    if (post.authorId.toString() !== userId){
+      res.status(403).json({message: "You are not authorised to edit this post"});
+    }
+
+    if(!postContent){
+      return res.status(400).json({message: "No post content provided"})
+    }
+    //replace current postContent 
+    post.postContent = postContent;
+    //save update to db
+    await post.save();
+
+    return res.status(201).json({
+      message: "Post updated",
+      post:{
+        _id:post._id,
+        postContent:postContent,
+        postImage:post.postImage,
+        createdAt:post.createdAt,
+        updatedAt: post.updatedAt,
+        likesCount:post.likes.length,
+        commentsCount:post.comments.length,
+      },
+    });
+
+  }catch(error){
+    console.error("DELETE POST ERROR", error)
+    return res.status(500).json({
+    message: "Server error editing post content",
+    })
+
+
+  }
+
+ }
+
+
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   createComment: createComment,
   toggleLike: toggleLike,
+  deletePost:deletePost,
+  editPostContent:editPostContent
 };
 
 module.exports = PostsController;

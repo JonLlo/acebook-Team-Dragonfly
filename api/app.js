@@ -21,8 +21,7 @@ app.use(bodyParser.json());
 
 app.use("/tokens", authenticationRouter);
 app.use("/users", usersRouter);
-app.use("/posts", postsRouter)
-app.use(tokenChecker);    
+app.use("/posts", tokenChecker, postsRouter)
 
 // 404 Handler
 app.use((_req, res) => {

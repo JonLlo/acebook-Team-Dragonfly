@@ -2,7 +2,7 @@ const request = require("supertest");
 const JWT = require("jsonwebtoken");
 
 const app = require("../../app");
-const Post = require("../../models/post");
+const {Post, Comment} = require("../../models/post");
 const User = require("../../models/user");
 
 require("../mongodb_helper");
