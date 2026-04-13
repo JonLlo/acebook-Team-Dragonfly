@@ -4,11 +4,25 @@ const bcrypt = require("bcrypt");
 
 async function create(req, res) {
   try {
-    const { email, password: plainTextPassword } = req.body;
+    const {
+      firstName,
+      surname,
+      userImage,
+      userBiography,
+      email,
+      password: plainTextPassword,
+    } = req.body;
 
     const password = await bcrypt.hash(plainTextPassword, 10);
 
-    const user = new User({ email, password });
+    const user = new User({
+      firstName,
+      surname,
+      userImage,
+      userBiography,
+      email,
+      password,
+    });
 
     const savedUser = await user.save();
 

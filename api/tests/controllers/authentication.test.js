@@ -2,12 +2,17 @@ const app = require("../../app");
 const supertest = require("supertest");
 require("../mongodb_helper");
 const User = require("../../models/user");
+const bcrypt = require("bcrypt")
 
 describe("/tokens", () => {
   beforeAll(async () => {
+    const hashedPassword = await bcrypt.hash("12345678", 10);
+
     const user = new User({
+      firstName: "john",
+      surname: "doe",
       email: "auth-test@test.com",
-      password: "12345678",
+      password: hashedPassword,
     });
 
     // We need to use `await` so that the "beforeAll" setup function waits for
@@ -26,7 +31,7 @@ describe("/tokens", () => {
     const response = await testApp
       .post("/tokens")
       .send({ email: "auth-test@test.com", password: "12345678" });
-
+    
     expect(response.status).toEqual(201);
     expect(response.body.token).not.toEqual(undefined);
     expect(response.body.message).toEqual("OK");
@@ -36,7 +41,7 @@ describe("/tokens", () => {
     const testApp = supertest(app);
     const response = await testApp
       .post("/tokens")
-      .send({ email: "non-existent@test.com", password: "1234" });
+      .send({ email: "non-existent@test.com", password: "12345678" });
 
     expect(response.status).toEqual(401);
     expect(response.body.token).toEqual(undefined);
@@ -47,7 +52,7 @@ describe("/tokens", () => {
     let testApp = supertest(app);
     const response = await testApp
       .post("/tokens")
-      .send({ email: "auth-test@test.com", password: "1234" });
+      .send({ email: "auth-test@test.com", password: "peter" });
 
     expect(response.status).toEqual(401);
     expect(response.body.token).toEqual(undefined);

@@ -28,21 +28,14 @@ export async function login(email, password) {
   }
 }
 
-export async function signup(email, password) {
-  const payload = {
-    email: email,
-    password: password,
-  };
-
-  const requestOptions = {
+export async function signup(payload) {
+  const response = await fetch(`${BACKEND_URL}/users`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
-  };
-
-  let response = await fetch(`${BACKEND_URL}/users`, requestOptions);
+  });
 
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
   if (response.status === 201) {
