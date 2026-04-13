@@ -3,15 +3,9 @@ const imageURL = "../images/";
 
 const UserSchema = new mongoose.Schema(
   {
-<<<<<<< Updated upstream
-    firstName: { type: String, default: null },
-    surname: { type: String, default: null },
-    userImage: {
-=======
     firstName: { type: String, required: true},
     surname: { type: String, required: true},
     userImage: { 
->>>>>>> Stashed changes
       type: String,
       default: "defaultAvatar.png",
       get: (v) => {

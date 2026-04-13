@@ -275,7 +275,7 @@ async function deletePost(req,res){
     }
 
     if (post.authorId.toString() !== userId){
-      res.status(403).json({message: "You are not authorised to edit this post"});
+      return res.status(403).json({message: "You are not authorised to edit this post"});
     }
 
     if(!postContent){
@@ -286,7 +286,7 @@ async function deletePost(req,res){
     //save update to db
     await post.save();
 
-    return res.status(201).json({
+    return res.status(200).json({
       message: "Post updated",
       post:{
         _id:post._id,
@@ -300,14 +300,11 @@ async function deletePost(req,res){
     });
 
   }catch(error){
-    console.error("DELETE POST ERROR", error)
+    console.error("EDIT POST ERROR", error)
     return res.status(500).json({
     message: "Server error editing post content",
     })
-
-
   }
-
  }
 
 
