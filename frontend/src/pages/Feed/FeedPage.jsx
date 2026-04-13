@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post";
 import LogoutButton from "../../components/LogoutButton";
+import "./FeedPage.css";
 
 export function FeedPage() {
   //   let hardcoded_post = {
@@ -53,7 +54,14 @@ export function FeedPage() {
 
   return (
     <>
-      <h2>Posts!!!</h2>
+    <div className="top-bar">
+      <img src="/small-logo.png" alt="Acebook Small Logo" className="logo-left"/>
+      <LogoutButton />
+    </div>  
+
+    <div className="feed-content">
+      <h2>My Feed</h2>
+  
 
       <div className="feed" role="feed">
         {posts.map((post, index) => {
@@ -66,13 +74,15 @@ export function FeedPage() {
           // parameter: post_id
           // token : user_id in the header
 
-          // Only render the Post component if there is actually content
-          return post.postContent ? <Post {...post} key={index} /> : null;
-        })}
+        // Only render the Post component if there is actually content
+        return post.postContent ? (
+          <Post {...post} key={index} />
+        ) : null;
+      })}
       </div>
-
+    </div>  
       {/* <PostList /> */}
-      <LogoutButton />
+
     </>
   );
 }

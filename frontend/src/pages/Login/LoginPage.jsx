@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { login } from "../../services/authentication";
+import "./LoginPage.css";
 
 export function LoginPage() {
   const [email, setEmail] = useState("");
@@ -30,24 +31,33 @@ export function LoginPage() {
 
   return (
     <>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="text"
-          value={email}
-          onChange={handleEmailChange}
-        />
+    <div className="login">
+      <img src="/logo.png" alt="Acebook Logo" style={{ width: '200px', height: 'auto' }}/>
+      <h2>Log in</h2>
+      <form onSubmit={handleSubmit} className="login-form">
+        <div className="form-group">
+          <label htmlFor="email">Email:</label>
+          <input
+            id="email"
+            type="text"
+            value={email}
+            onChange={handleEmailChange}
+          />
+        </div> 
+
+        <div className="form-group">
         <label htmlFor="password">Password:</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </div>  
+        <input role="submit-button" id="submit" type="submit" value="Log in" />
+      
       </form>
+     </div> 
     </>
   );
 }
