@@ -47,3 +47,22 @@ export async function toggleLike(postId, token) {
 
   return response.json(); // contains likedByCurrentUser + likesCount
 }
+
+//updating post comment and returning updated post
+export async function editPostContent(postId, postUpdates) {
+  const token = localStorage.getItem("token");
+   const response = await fetch(`${BACKEND_URL}/posts/${postId}`, {
+     method: "PATCH",
+     headers: {
+     "Content-Type": "application/json",
+     "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify(postUpdates),
+  });
+  const data = await response.json();
+
+  if(!response.ok){
+    throw new Error(data.message || "Failed to update users post")
+  }
+  return data;
+}

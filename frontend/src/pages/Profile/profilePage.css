@@ -72,3 +72,9 @@
   margin-top: 12px;
   font-weight: 600;
 }
+
+.post-card__actions {
+  display: flex;
+  gap:12px;
+  margin-top: 12px;
+}
