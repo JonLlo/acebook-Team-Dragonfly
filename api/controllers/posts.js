@@ -48,6 +48,8 @@ async function getAllPosts(req, res) {
       createdAt: post.createdAt,
       updatedAt: post.updatedAt,
 
+  
+
       author: post.authorId
         ? {
             _id: post.authorId._id,
@@ -133,14 +135,18 @@ async function createPost(req, res) {
 }
 
 async function createComment(req, res) {
-  try {
+  console.log('running')
+  try { 
     const postId = req.params.id;
 
     //check for comment text
+    console.log('req body here', req)
     const commentContent = req.body.commentContent;
     if (!commentContent) {
+      console.log('COMMENT CONTENT DOES NOT EXIST')
       res.status(400).json({ message: "Comment content is required" });
     }
+    console.log('COMMENT CONTENT IS')
 
     //check post exists
     const post = await Post.findById(postId);
@@ -169,11 +175,13 @@ async function createComment(req, res) {
     return res.status(201).json({
       message: "Comment added",
       comment: populatedComment,
+
     });
   } catch (error) {
-    return res.status(500).json({
-      message: "Server error adding comment",
-    });
+    console.log('NOT WORKING')
+    // return res.status(500).json({
+    //   message: "Server error adding comment",
+    // });
   }
 }
 /*Functionality user clicks like button

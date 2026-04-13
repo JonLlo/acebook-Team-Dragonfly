@@ -2,9 +2,12 @@ import { useState } from "react";
 import LikeButton from "./LikeButton";
 import PostInfo from "./PostInfo";
 import CommentList from "./CommentList";
-import { toggleLike } from "../services/posts";
+import { addCommentToPost, toggleLike } from "../services/posts";
 
 // Post.jsx
+
+
+
 const Post = (props) => {
   // const [youLike, setYouLike] = useState(props.youLike); //need to get this from backend!!
   // const [likesCount, setLikesCount] = useState(props.likes?.length || 0);
@@ -12,6 +15,9 @@ const Post = (props) => {
   const [likesCount, setLikesCount] = useState(props.likesCount);
 
   const [comments, setComments] = useState(props.comments || []);
+  const [commentContent, setCommentContent] = useState("");
+  const [error, setError] = useState("");
+
 
   const handleLikeToggle = async () => {
    
@@ -48,6 +54,35 @@ const Post = (props) => {
 
   };
 
+  async function handleSubmitComment(event) {
+    event.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    if (commentContent.trim() === "") {
+      setError("Please enter a valid comment");
+      //alert("Please enter a valid comment");
+      return
+    }
+
+    try {
+      //alert('Thanks for commenting!')
+      const result = await addCommentToPost(props._id, commentContent, token);
+      
+    } catch (err) {
+      //alert('yoyo2')
+      console.error(err);
+      setError(["Signup failed. Please try again."]);
+    }
+  }
+
+
+    function handleCommentContentChange(event) {
+      setCommentContent(event.target.value);
+  }
+
+
+
   return (
     <div
       className="post-container"
@@ -64,10 +99,18 @@ const Post = (props) => {
         <LikeButton youLike={youLike} ToggleYouLike={handleLikeToggle} />
         <span>{likesCount} Likes</span>
       </div>
+      <form method="post" onSubmit={handleSubmitComment}>
+          <input placeholder="Add Comment!!" value={commentContent} onChange={handleCommentContentChange} type="text" name="fname" />
+          <input type="submit" value="Submit" />
+        </form>
+        
+
+
 
       <div className="comments-section">
         <CommentList comments={comments} />
       </div>
+  
     </div>
   );
 };
