@@ -1,4 +1,3 @@
-console.log("POSTS ROUTER LOADED");
 
 const express = require("express");
 const router = express.Router();
@@ -10,9 +9,11 @@ const PostsController = require("../controllers/posts");
 router.get("/", tokenChecker, PostsController.getAllPosts);
 
 // Protected routes
-router.post("/", tokenChecker, PostsController.createPost);
-router.post("/:id/comments", tokenChecker, PostsController.createComment);
-router.patch("/:id/likes", tokenChecker, PostsController.toggleLike);
+router.post("/",  PostsController.createPost);
+router.post("/:id/comments",  PostsController.createComment);
+router.patch("/:id/likes", PostsController.toggleLike);
+router.delete("/:id", PostsController.deletePost);
+router.patch("/:id", PostsController.editPostContent)
 
 module.exports = router;
 

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const imageURL = "../public/images";
+const imageURL = "../images/";
 
 const UserSchema = new mongoose.Schema(
   {
