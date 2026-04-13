@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post";
-import LogoutButton from "../../components/LogoutButton";
+// import LogoutButton from "../../components/LogoutButton";
 import "./FeedPage.css";
+import Navbar from "../../components/Navbar";
+
 
 export function FeedPage() {
   //   let hardcoded_post = {
@@ -54,10 +56,7 @@ export function FeedPage() {
 
   return (
     <>
-    <div className="top-bar">
-      <img src="/small-logo.png" alt="Acebook Small Logo" className="logo-left"/>
-      <LogoutButton />
-    </div>  
+    <Navbar />
 
     <div className="feed-content">
       <h2>My Feed</h2>

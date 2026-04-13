@@ -2,9 +2,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333;
-  color: #fff;
+  background-color: #f6f4f0;
+  color: #000000;
   padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+}
+
+img {
+  border-radius: 8px;
 }
 
 .navbar-left .logo {
@@ -27,7 +33,7 @@
 }
 
 .navbar-center .nav-links a {
-  color: #fff;
+  color: #000000;
   text-decoration: none;
 }
 
@@ -38,4 +44,31 @@
 
 .navbar-center .nav-links a:hover {
   color: #4a951c;
+}
+
+.navbar-loggedout .signup-btn {
+  background-color: #000000;
+  color: #f6f4f0;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-loggedout .login-btn {
+  margin-left: 15px;
+  background-color: #000000;
+  color: #f6f4f0;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-loggedout .login-btn:hover {
+    color: #4a951c;
+}
+
+.navbar-loggedout .signup-btn:hover {
+    color: #4a951c;
 }

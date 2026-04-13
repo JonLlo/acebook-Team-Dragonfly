@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { login } from "../../services/authentication";
 import "./LoginPage.css";
+import Navbar from "../../components/Navbar";
 
 export function LoginPage() {
   const [email, setEmail] = useState("");
@@ -32,6 +33,7 @@ export function LoginPage() {
   return (
     <>
     <div className="login">
+      <Navbar />
       <img src="/logo.png" alt="Acebook Logo" style={{ width: '200px', height: 'auto' }}/>
       <h2>Log in</h2>
       <form onSubmit={handleSubmit} className="login-form">

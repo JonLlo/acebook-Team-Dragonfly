@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;    /* Horizontal center */
   justify-content: center; /* Vertical center */
-  gap: 5px;              /* Puts space between logo, H1, and links */
+  gap: 5px;
 }
 
 .home-links {

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { signup } from "../../services/authentication";
 import "./SignupPage.css";
+import Navbar from "../../components/Navbar";
 
 export function SignupPage() {
   const [firstName, setFirstName] = useState("");
@@ -100,6 +101,8 @@ export function SignupPage() {
 
   return (
     <>
+    <div className="signup-page">
+      <Navbar />
       <img
         src="/logo.png"
         alt="Acebook Logo"
@@ -109,7 +112,7 @@ export function SignupPage() {
       <p>
         <i>Please enter your details below</i>
       </p>
-
+    </div>
       <div className="signing-in">
         <form onSubmit={handleSubmit} className="signup-form">
           <div className="form-group">
