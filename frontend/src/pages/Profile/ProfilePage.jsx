@@ -31,6 +31,17 @@ export function ProfilePage() {
       user:updatedUser
     }))
   }
+
+  const handlePostUpdated = (updatedPost) => {
+    setProfileData((currentData)=>({
+      ...currentData,
+      post:currentData.post.map((post)=>
+      post._id === updatedPost._id
+      ? {...post, ...updatedPost}
+      :post
+    ), 
+    }))
+  }
   if(errorMessage){
     return <p>{errorMessage}</p>
   }
@@ -46,7 +57,10 @@ export function ProfilePage() {
        postsCount={profileData.post.length}
        onProfileUpdated={handleProfileUpdated}
       />
-    <ProfileUserPosts posts={profileData.post} />
+    <ProfileUserPosts 
+    posts={profileData.post}
+    onPostUpdated={handlePostUpdated}
+     />
       
     </div>
   );

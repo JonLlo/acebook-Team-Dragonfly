@@ -1,6 +1,6 @@
 import ProfilePostCard from "./ProfilePostCard";
 
-function ProfileUserPosts({ posts }) {
+function ProfileUserPosts({ posts, onPostUpdated }) {
   if (!posts) {
     return <p>This user has not posted anything yet.</p>;
   }
@@ -11,7 +11,11 @@ function ProfileUserPosts({ posts }) {
 
       <div className="user-posts__list">
         {posts.map((post) => (
-          <ProfilePostCard key={post._id} post={post} />
+          <ProfilePostCard 
+          key={post._id} 
+          post={post}
+          onPostUpdated={onPostUpdated}
+          />
         ))}
       </div>
     </section>
