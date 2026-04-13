@@ -1,4 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Navbar from "./components/Navbar";
 
 import "./App.css";
 import { HomePage } from "./pages/Home/HomePage";
@@ -23,18 +25,22 @@ const router = createBrowserRouter([
     element: <SignupPage />,
   },
   {
-    path: "/posts",
-    element: <FeedPage />,
-  },
-  {
     path: "/profile",
     element: <ProfilePage />,
   },
+  {
+    path: "/posts",
+    element: (
+    <ProtectedRoute>
+      <FeedPage />
+    </ProtectedRoute>
+    )},
 ]);
 
 function App() {
   return (
     <>
+    <Navbar />
       <RouterProvider router={router} />
     </>
   );
