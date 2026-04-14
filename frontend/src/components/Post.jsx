@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LikeButton from "./LikeButton";
 import PostInfo from "./PostInfo";
-import CommentList from "./CommentList";
+import Comment from "./Comment";
 import { addCommentToPost, toggleLike } from "../services/posts";
 
 // Post.jsx
@@ -54,7 +54,34 @@ const Post = (props) => {
 
   };
 
-  async function handleSubmitComment(event) {
+  // async function handleSubmitComment(event) {
+  //   event.preventDefault();
+
+  //   const token = localStorage.getItem("token");
+
+  //   if (commentContent.trim() === "") {
+  //     setError("Please enter a valid comment");
+  //     //alert("Please enter a valid comment");
+  //     return
+  //   }
+
+  //   try {
+  //     //alert('Thanks for commenting!')
+  //     await addCommentToPost(props._id, commentContent, token);
+  //     setCommentContent(comments)
+      
+      
+  //   } catch (err) {
+  //     //alert('yoyo2')
+  //     console.error(err);
+  //     setError(["Signup failed. Please try again."]);
+  //   }
+  // }
+
+
+
+
+    async function handleSubmitComment(event) {
     event.preventDefault();
 
     const token = localStorage.getItem("token");
@@ -67,7 +94,26 @@ const Post = (props) => {
 
     try {
       //alert('Thanks for commenting!')
-      const result = await addCommentToPost(props._id, commentContent, token);
+      const newCommentObject = await addCommentToPost(props._id, commentContent, token);
+      const newComment = newCommentObject.comment
+
+      console.log('new comment here', newComment)
+      const normalized = {
+        _id: newComment._id,
+        commentContent: newComment.commentContent,
+        createdAt: newComment.createdAt,
+        updatedAt: newComment.updatedAt,
+        author: {
+          _id: newComment.authorId._id,
+          firstName: newComment.authorId.firstName || "",
+          surname: newComment.authorId.surname || "",
+          userImage: newComment.authorId.userImage
+        }
+      };
+      console.log('comments here', [...comments, newComment])
+      console.log('comments update', [...comments, normalized])
+      setComments([...comments, normalized])
+      
       
     } catch (err) {
       //alert('yoyo2')
@@ -75,6 +121,10 @@ const Post = (props) => {
       setError(["Signup failed. Please try again."]);
     }
   }
+
+
+
+  
 
 
     function handleCommentContentChange(event) {
@@ -108,7 +158,7 @@ const Post = (props) => {
 
 
       <div className="comments-section">
-        <CommentList comments={comments} />
+        <Comment comments={comments} />
       </div>
   
     </div>

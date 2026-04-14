@@ -98,6 +98,7 @@ export async function addCommentToPost(postId, commentContent, token) {
 
   const data = await response.json()
 
+
   return data;
 
 }
