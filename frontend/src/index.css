@@ -33,3 +33,10 @@ h2 {
   letter-spacing: 2px;
   color: #1c1e21;
 }
+
+h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;   /* It looks best when large */
+  letter-spacing: 2px;
+  color: #1c1e21;
+}

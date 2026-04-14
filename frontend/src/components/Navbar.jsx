@@ -3,7 +3,6 @@ import LogoutButton from "./LogoutButton";
 
 const Navbar = () => {
   const isLoggedIn = !!localStorage.getItem("token");
-  const loginUrl = window.location.pathname;
 
   return (
     <nav className="navbar">

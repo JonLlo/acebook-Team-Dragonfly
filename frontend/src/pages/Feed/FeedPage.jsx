@@ -6,6 +6,7 @@ import Post from "../../components/Post";
 // import LogoutButton from "../../components/LogoutButton";
 import "./FeedPage.css";
 import Navbar from "../../components/Navbar";
+import CreatePost from "../../components/CreatePost";
 
 export function FeedPage() {
   //   let hardcoded_post = {
@@ -54,26 +55,29 @@ export function FeedPage() {
 
   return (
     <>
-      <Navbar />
+    <Navbar />
 
-      <div className="feed-content">
-        <h2>My Feed</h2>
+    <div className="feed-content">
+      <h2>My Feed</h2>
+      <CreatePost />
+  
 
-        <div className="feed" role="feed">
-          {posts.map((post, index) => {
-            console.log(post._id);
-            //console.log("HERE POSTS 2:", posts);
-            console.log("INDEX: " + index + " POST: " + post.postContent);
-            console.log("LIKES " + post.likesCount);
+      <div className="feed" role="feed">
+        {posts.map((post, index) => {
+          console.log(post._id)
+          //console.log("HERE POSTS 2:", posts);
+          console.log("INDEX: " + index + " POST: " + post.postContent);
+          console.log("LIKES " + post.likesCount);
 
-            //fetch request fetching the count and the status of youLike. need to send the token and the
-            // parameter: post_id
-            // token : user_id in the header
+          //fetch request fetching the count and the status of youLike. need to send the token and the
+          // parameter: post_id
+          // token : user_id in the header
 
-            // Only render the Post component if there is actually content
-            return post.postContent ? <Post {...post} key={index} /> : null;
-          })}
-        </div>
+        // Only render the Post component if there is actually content
+        return post.postContent ? (
+          <Post {...post} key={index} />
+        ) : null;
+      })}
       </div>
       {/* <PostList /> */}
     </>

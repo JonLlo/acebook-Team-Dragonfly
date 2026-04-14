@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { getMyProfile } from "../../services/user";
-import ProfileHeader from "../../components/ProfileHeader";
-import ProfileUserPosts from "../../components/ProfileUserPosts";
-import "./profilepage.css";
+import ProfileHeader from "../../components/ProfileHeader"
+import ProfileUserPosts from "../../components/ProfileUserPosts"
+import "./profilepage.css"
+import Navbar from "../../components/Navbar";
+
+
 
 export function ProfilePage() {
   const [profileData, setProfileData] = useState(null);
@@ -45,6 +48,8 @@ export function ProfilePage() {
   }
 
   return (
+    <>
+    <Navbar />
     <div className="profile-page">
       <ProfileHeader
         user={profileData.user}
@@ -56,5 +61,6 @@ export function ProfilePage() {
         onPostUpdated={handlePostUpdated}
       />
     </div>
+    </>
   );
 }
