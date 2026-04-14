@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 import "./HomePage.css";
-import Navbar from "../../components/Navbar";
 
 export function HomePage() {
   return (
