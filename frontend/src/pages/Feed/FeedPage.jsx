@@ -6,6 +6,7 @@ import Post from "../../components/Post";
 // import LogoutButton from "../../components/LogoutButton";
 import "./FeedPage.css";
 import Navbar from "../../components/Navbar";
+import CreatePost from "../../components/CreatePost";
 
 
 export function FeedPage() {
@@ -60,6 +61,7 @@ export function FeedPage() {
 
     <div className="feed-content">
       <h2>My Feed</h2>
+      <CreatePost />
   
 
       <div className="feed" role="feed">

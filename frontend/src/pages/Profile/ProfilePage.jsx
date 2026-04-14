@@ -4,6 +4,7 @@ import { getMyProfile } from "../../services/user";
 import ProfileHeader from "../../components/ProfileHeader"
 import ProfileUserPosts from "../../components/ProfileUserPosts"
 import "./profilepage.css"
+import Navbar from "../../components/Navbar";
 
 
 
@@ -51,6 +52,8 @@ export function ProfilePage() {
   }
 
   return (
+    <>
+    <Navbar />
     <div className="profile-page">
       <ProfileHeader 
        user={profileData.user}
@@ -63,6 +66,7 @@ export function ProfilePage() {
      />
       
     </div>
+    </>
   );
 }
 
