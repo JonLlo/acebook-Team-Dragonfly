@@ -1,0 +1,27 @@
+.aPost {
+  display: flex;
+  width: 60%;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  min-height: 25vh;
+  margin: 0 auto 20px auto;
+  border: 2px solid #4a951c;
+  border-radius: 5px;
+  background: #e5ece1
+}
+
+.postHeader {
+  display: flex;
+  flex-direction: row; 
+  align-items: center; 
+  justify-content: center;
+  gap: 15px;           
+  width: 100%;        
+  margin-bottom: 10px;
+}
+
+/* Optional: remove default margins from the name to keep it perfectly aligned */
+.authorName {
+  margin: 0;
+}
