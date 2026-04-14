@@ -5,10 +5,10 @@ import "./CreatePost.css";
 
 
 
-const CreatePost = () => {
+const CreatePost = (props) => {
     const [postContent, setPostContent] = useState("");
     const [postImage, setPostImage] = useState("");
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState(props.posts || []);
 
     const navigate = useNavigate();
 
@@ -46,7 +46,15 @@ const CreatePost = () => {
                 setPostContent("");
                 setPostImage("");
 
-                navigate("/posts");
+                const postToAdd = newPost.post || newPost;
+
+                props.onPostCreated(postToAdd);
+                // const updatedPosts = [...posts, newPost]
+                console.log("here are posts", posts)
+                console.log("here is new post", newPost)
+                console.log("FEATHER ", props.posts)
+                // console.log("updated post here", updatedPosts)
+                // setPosts(updatedPosts)
             })
             .catch((error) => {
                 console.log("Post failed error:", error);

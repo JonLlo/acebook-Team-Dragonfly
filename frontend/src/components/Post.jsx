@@ -124,7 +124,6 @@ const Post = (props) => {
         img={props.image}
         datetime={props.datetime}
       />
-
       <div className="like-section">
         <LikeButton youLike={youLike} ToggleYouLike={handleLikeToggle} />
         <span>{likesCount} Likes</span>
