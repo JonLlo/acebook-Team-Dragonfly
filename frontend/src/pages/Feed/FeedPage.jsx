@@ -9,77 +9,81 @@ import Navbar from "../../components/Navbar";
 import CreatePost from "../../components/CreatePost";
 
 export function FeedPage() {
-  //   let hardcoded_post = {
+  //   let hardcoded_post = {
 
-  //   postContent: "this is a post",
-  //   authorImage: "../public/images/defaultAvatar",
-  //   comments: {"com_test": "com_test2"},
-  //   likes: {"like_test": "like_test2"},
-  // }
-  //   let hardcoded_post_2 = {
+  //   postContent: "this is a post",
+  //   authorImage: "../public/images/defaultAvatar",
+  //   comments: {"com_test": "com_test2"},
+  //   likes: {"like_test": "like_test2"},
+  // }
+  //   let hardcoded_post_2 = {
 
-  //   postContent: "this is a post",
-  //   authorImage: "../public/images/defaultAvatar",
-  //   comments: {"com_test": "com_test2"},
-  //   likes: {"like_test": "like_test2"},
-  // }
+  //   postContent: "this is a post",
+  //   authorImage: "../public/images/defaultAvatar",
+  //   comments: {"com_test": "com_test2"},
+  //   likes: {"like_test": "like_test2"},
+  // }
 
-  const [posts, setPosts] = useState([]);
-  //console.log(`HERE! POSTS:` +  posts)
+  const [posts, setPosts] = useState([]);
+  //console.log(`HERE! POSTS:` +  posts)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const loggedIn = token !== null;
-    if (loggedIn) {
-      getPosts(token)
-        .then((data) => {
-          setPosts(data.posts);
-          localStorage.setItem("token", data.token);
-          console.log("TOKENTOKEN", data.token);
-          console.log("POSTPOST", data.posts);
-        })
-        .catch((err) => {
-          console.error(err);
-          navigate("/login");
-        });
-    }
-  }, [navigate]);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const loggedIn = token !== null;
+    if (loggedIn) {
+      getPosts(token)
+        .then((data) => {
+          setPosts(data.posts);
+          localStorage.setItem("token", data.token);
+          console.log("TOKENTOKEN", data.token);
+          console.log("POSTPOST", data.posts);
+        })
+        .catch((err) => {
+          console.error(err);
+          navigate("/login");
+        });
+    }
+  }, [navigate]);
 
-  const token = localStorage.getItem("token");
-  if (!token) {
-    navigate("/login");
-    return;
-  }
+  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/login");
+    return;
+  }
 
-  return (
-    <>
-    <Navbar />
+  return (
 
-    <div className="feed-content">
-      <h2>My Feed</h2>
-      <CreatePost />
-  
 
-      <div className="feed" role="feed">
-        {posts.map((post, index) => {
-          console.log(post._id)
-          //console.log("HERE POSTS 2:", posts);
-          console.log("INDEX: " + index + " POST: " + post.postContent);
-          console.log("LIKES " + post.likesCount);
 
-          //fetch request fetching the count and the status of youLike. need to send the token and the
-          // parameter: post_id
-          // token : user_id in the header
+    <div className="feed-content">
+      <Navbar></Navbar>
+      <h2>My Feed</h2>
+      <CreatePost />
 
-        // Only render the Post component if there is actually content
-        return post.postContent ? (
-          <Post {...post} key={index} />
-        ) : null;
-      })}
-      </div>
-      {/* <PostList /> */}
-    </>
-  );
+
+
+      <div className="feed" role="feed">
+        {posts.map((post, index) => {
+          console.log(post._id)
+          //console.log("HERE POSTS 2:", posts);
+          console.log("INDEX: " + index + " POST: " + post.postContent);
+          console.log("LIKES " + post.likesCount);
+
+          //fetch request fetching the count and the status of youLike. need to send the token and the
+          // parameter: post_id
+          // token : user_id in the header
+
+        // Only render the Post component if there is actually content
+        return post.postContent ? (
+          <Post {...post} key={index} />
+        ) : null;
+      })}
+      </div>
+
+      {/* <PostList /> */}
+    </div>
+
+  );
 }
