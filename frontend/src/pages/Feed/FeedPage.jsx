@@ -79,6 +79,7 @@ export function FeedPage() {
         ) : null;
       })}
       </div>
+      </div>
       {/* <PostList /> */}
     </>
   );
