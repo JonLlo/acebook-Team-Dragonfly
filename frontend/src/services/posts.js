@@ -25,21 +25,21 @@ export async function getPosts(token) {
   return data;
 }
 
-
 //sending TO the backend from the front end
 export async function toggleLike(postId, token) {
-  console.log("POST ID HERE: " + postId)
-  console.log("TOKEN", token)
+  console.log("POST ID HERE: " + postId);
+  console.log("TOKEN", token);
   const requestOptions = {
     method: "PATCH",
     headers: {
-     "Content-Type": "application/json",
-     "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-
   };
-  const response = await fetch(`${BACKEND_URL}/posts/${postId}/likes`, requestOptions)
-  
+  const response = await fetch(
+    `${BACKEND_URL}/posts/${postId}/likes`,
+    requestOptions,
+  );
 
   if (!response.ok) {
     throw new Error("Unable to toggle like");
@@ -47,7 +47,6 @@ export async function toggleLike(postId, token) {
 
   return response.json(); // contains likedByCurrentUser + likesCount
 }
-
 
 //comments
 
@@ -67,7 +66,6 @@ export async function toggleLike(postId, token) {
 //   };
 //   const response = await fetch(`${BACKEND_URL}/posts/${postId}/comments`, requestOptions)
 
-
 //   if (!response.ok) {
 //     throw new Error("Unable to add comment");
 //   }
@@ -77,48 +75,45 @@ export async function toggleLike(postId, token) {
 // }
 
 export async function addCommentToPost(postId, commentContent, token) {
-  console.log('COMMENT HERE_------>', commentContent)
-  console.log("POST ID HERE:-------> " + postId)
-  console.log("TOKEN", token)
-  console.log(commentContent)
+  console.log("COMMENT HERE_------>", commentContent);
+  console.log("POST ID HERE:-------> " + postId);
+  console.log("TOKEN", token);
+  console.log(commentContent);
   //Now we need to add the comment to the database.
-  
+
   const response = await fetch(`${BACKEND_URL}/posts/${postId}/comments`, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
-     "Authorization": `Bearer ${token}`,
-  },
-   body: JSON.stringify({commentContent:commentContent}),
-})
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ commentContent: commentContent }),
+  });
 
   if (!response.ok) {
     throw new Error("Unable to add comment");
   }
 
-  const data = await response.json()
-
+  const data = await response.json();
 
   return data;
-
 }
-
 
 //updating post comment and returning updated post
 export async function editPostContent(postId, postUpdates) {
   const token = localStorage.getItem("token");
-   const response = await fetch(`${BACKEND_URL}/posts/${postId}`, {
-     method: "PATCH",
-     headers: {
-     "Content-Type": "application/json",
-     "Authorization": `Bearer ${token}`,
+  const response = await fetch(`${BACKEND_URL}/posts/${postId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(postUpdates),
   });
   const data = await response.json();
 
-  if(!response.ok){
-    throw new Error(data.message || "Failed to update users post")
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to update users post");
   }
   return data;
 }

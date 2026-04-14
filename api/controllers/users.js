@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const { Post } = require("../models/post")
+const { Post } = require("../models/post");
 const bcrypt = require("bcrypt");
 
 async function create(req, res) {
@@ -96,48 +96,50 @@ async function getUserProfile(req, res) {
   }
 }
 
-async function editUserProfile(req,res){
+async function editUserProfile(req, res) {
   console.log("INSIDE EDITUSERPROFILE()");
-  try{
+  try {
     //check user requesting edit is the same as the looged in user
     const id = req.params.id;
-    console.log("ID:", id)
+    console.log("ID:", id);
 
-    if(req.user_id !== id){
-      return res.status(403).json({message: "You do not have authorisation to edit this profile"});
+    if (req.user_id !== id) {
+      return res.status(403).json({
+        message: "You do not have authorisation to edit this profile",
+      });
     }
     console.log("REQ BODY", req.body);
     //restrict the user to editing specific fields only
     const allowedFields = ["firstName", "surname", "userBiography"];
-    const updatesTo= {};
+    const updatesTo = {};
 
-     
     //check which fields the user would like to update and include them in the updatesTo object
-    
-    
-    allowedFields.forEach((field)=> {
-      if(req.body[field] !== undefined){
+
+    allowedFields.forEach((field) => {
+      if (req.body[field] !== undefined) {
         updatesTo[field] = req.body[field];
       }
     });
-     console.log("ALLOWED UPDATES: ---->", updatesTo);
+    console.log("ALLOWED UPDATES: ---->", updatesTo);
 
-      const updatedProfile = await User.findByIdAndUpdate(req.user_id,updatesTo,{
-        new: true //tells mongoDb to return the updated entry
-      }).select("-password") //do not return password
-      
-      res.status(200).json({user:updatedProfile});
+    const updatedProfile = await User.findByIdAndUpdate(
+      req.user_id,
+      updatesTo,
+      {
+        new: true, //tells mongoDb to return the updated entry
+      },
+    ).select("-password"); //do not return password
 
-  }catch(error){
-
-    res.status(500).json({message: "Error updating user profile"})
+    res.status(200).json({ user: updatedProfile });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating user profile" });
   }
 }
 
 const UsersController = {
   create: create,
   getUserProfile: getUserProfile,
-  editUserProfile:editUserProfile
+  editUserProfile: editUserProfile,
 };
 
 module.exports = UsersController;

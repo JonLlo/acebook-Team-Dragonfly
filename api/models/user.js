@@ -3,9 +3,9 @@ const imageURL = "../images/";
 
 const UserSchema = new mongoose.Schema(
   {
-    firstName: { type: String, required: true},
-    surname: { type: String, required: true},
-    userImage: { 
+    firstName: { type: String, required: true },
+    surname: { type: String, required: true },
+    userImage: {
       type: String,
       default: "defaultAvatar.png",
       get: (v) => {
@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
       },
     },
     userBiography: { type: String, required: false },
-    email: { type: String, required: true, unique: true},
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     notificationsArray: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], //Might not be used

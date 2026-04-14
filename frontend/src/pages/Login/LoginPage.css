@@ -1,17 +1,17 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 20px; 
+  gap: 20px;
   width: 100%;
-  max-width: 400px; 
-  margin: 0 auto;   
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Aligns label and input to the left */
-  gap: 8px;               /* Space between the label and the text box */
+  gap: 8px; /* Space between the label and the text box */
 }
 
 .form-group label {

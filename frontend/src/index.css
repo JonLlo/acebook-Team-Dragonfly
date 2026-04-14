@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -26,9 +26,10 @@ h1 {
   line-height: 1.1;
 }
 
-h1, h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 3rem;   /* It looks best when large */
+h1,
+h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 3rem; /* It looks best when large */
   letter-spacing: 2px;
   color: #1c1e21;
 }

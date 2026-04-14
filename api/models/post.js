@@ -6,13 +6,13 @@ const imageURL = "../images/";
 const PostSchema = new mongoose.Schema(
   {
     authorId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    postContent: { type: String, required: true,  trim:true},
+    postContent: { type: String, required: true, trim: true },
     postImage: {
       type: String,
 
       get: (v) => {
         if (!v) return null;
-        return v.startsWith(imageURL) ? v : `${imageURL}${v}`
+        return v.startsWith(imageURL) ? v : `${imageURL}${v}`;
       },
     },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],

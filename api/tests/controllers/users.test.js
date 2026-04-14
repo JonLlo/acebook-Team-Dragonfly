@@ -12,17 +12,23 @@ describe("/users", () => {
 
   describe("POST, when email and password are provided", () => {
     test("the response code is 201", async () => {
-      const response = await request(app)
-        .post("/users")
-        .send({ firstName: "john", surname: "doe", email: "poppy@email.com", password: "1234" });
+      const response = await request(app).post("/users").send({
+        firstName: "john",
+        surname: "doe",
+        email: "poppy@email.com",
+        password: "1234",
+      });
 
       expect(response.statusCode).toBe(201);
     });
 
     test("a user is created", async () => {
-      await request(app)
-        .post("/users")
-        .send({ firstName: "john", surname: "doe", email: "scarconstt@email.com", password: "1234" });
+      await request(app).post("/users").send({
+        firstName: "john",
+        surname: "doe",
+        email: "scarconstt@email.com",
+        password: "1234",
+      });
 
       const users = await User.find();
       const newUser = users[users.length - 1];

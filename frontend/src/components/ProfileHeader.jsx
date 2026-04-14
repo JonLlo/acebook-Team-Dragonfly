@@ -1,35 +1,34 @@
 import { useState } from "react";
-import { updateUserProfile} from "../services/user"
+import { updateUserProfile } from "../services/user";
 
-function ProfileHeader({user, postsCount, onProfileUpdated}){
+function ProfileHeader({ user, postsCount, onProfileUpdated }) {
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     firstName: user.firstName || "",
     surname: user.surname || "",
     email: user.email || "",
-    userBiography:user.userBiography || ""
-  })
+    userBiography: user.userBiography || "",
+  });
 
   const handleEditClick = () => {
     setFormData({
       firstName: user.firstName || "",
-    surname: user.surname || "",
-    email: user.email || "",
-    userBiography:user.userBiography || ""
+      surname: user.surname || "",
+      email: user.email || "",
+      userBiography: user.userBiography || "",
     });
     setError("");
     setIsEditing(true);
-  }
+  };
 
-  const handleChange = (event)=>{
-    const {name, value} = event.target;
-    setFormData((currentData)=>({
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((currentData) => ({
       ...currentData,
-      [name]:value,
-    }))
-    
-  }
+      [name]: value,
+    }));
+  };
 
   const handleCancel = () => {
     setIsEditing(false);
@@ -39,17 +38,17 @@ function ProfileHeader({user, postsCount, onProfileUpdated}){
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
-    try{
+    try {
       const data = await updateUserProfile(user._id, formData);
       onProfileUpdated(data.user);
       setIsEditing(false);
-       }catch(error){
+    } catch (error) {
       setError(error.message || "Failed to update profile");
-      }
+    }
   };
 
-    return(
-       <section className="profile-header">
+  return (
+    <section className="profile-header">
       <div className="profile-header__image-container">
         <img
           className="profile-header__image"
@@ -126,10 +125,7 @@ function ProfileHeader({user, postsCount, onProfileUpdated}){
         )}
       </div>
     </section>
-
-    
-    )
-  
+  );
 }
 
-  export default ProfileHeader
+export default ProfileHeader;

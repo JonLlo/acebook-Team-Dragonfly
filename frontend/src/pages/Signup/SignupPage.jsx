@@ -101,18 +101,18 @@ export function SignupPage() {
 
   return (
     <>
-    <div className="signup-page">
-      <Navbar />
-      <img
-        src="/logo.png"
-        alt="Acebook Logo"
-        style={{ width: "200px", height: "auto" }}
-      />
-      <h2>Sign Up</h2>
-      <p>
-        <i>Please enter your details below</i>
-      </p>
-    </div>
+      <div className="signup-page">
+        <Navbar />
+        <img
+          src="/logo.png"
+          alt="Acebook Logo"
+          style={{ width: "200px", height: "auto" }}
+        />
+        <h2>Sign Up</h2>
+        <p>
+          <i>Please enter your details below</i>
+        </p>
+      </div>
       <div className="signing-in">
         <form onSubmit={handleSubmit} className="signup-form">
           <div className="form-group">

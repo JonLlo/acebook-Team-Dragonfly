@@ -32,34 +32,42 @@ export function LoginPage() {
 
   return (
     <>
-    <div className="login">
-      <Navbar />
-      <img src="/logo.png" alt="Acebook Logo" style={{ width: '200px', height: 'auto' }}/>
-      <h2>Log in</h2>
-      <form onSubmit={handleSubmit} className="login-form">
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            id="email"
-            type="text"
-            value={email}
-            onChange={handleEmailChange}
-          />
-        </div> 
+      <div className="login">
+        <Navbar />
+        <img
+          src="/logo.png"
+          alt="Acebook Logo"
+          style={{ width: "200px", height: "auto" }}
+        />
+        <h2>Log in</h2>
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              id="email"
+              type="text"
+              value={email}
+              onChange={handleEmailChange}
+            />
+          </div>
 
-        <div className="form-group">
-        <label htmlFor="password">Password:</label>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </div>
           <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
+            role="submit-button"
+            id="submit"
+            type="submit"
+            value="Log in"
           />
-        </div>  
-        <input role="submit-button" id="submit" type="submit" value="Log in" />
-      
-      </form>
-     </div> 
+        </form>
+      </div>
     </>
   );
 }
