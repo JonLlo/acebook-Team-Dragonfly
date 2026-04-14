@@ -9,7 +9,11 @@ function LogoutButton() {
     navigate("/");
   }
 
-  return <button className="logout-button" onClick={logOut}>Log out</button>;
+  return (
+    <button className="logout-button" onClick={logOut}>
+      Log out
+    </button>
+  );
 }
 
 export default LogoutButton;

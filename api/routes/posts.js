@@ -1,4 +1,3 @@
-
 const express = require("express");
 const router = express.Router();
 
@@ -9,16 +8,12 @@ const PostsController = require("../controllers/posts");
 router.get("/", tokenChecker, PostsController.getAllPosts);
 
 // Protected routes
-router.post("/",  PostsController.createPost);
-router.post("/:id/comments",  PostsController.createComment);
+router.post("/", PostsController.createPost);
+router.post("/:id/comments", PostsController.createComment);
 router.patch("/:id/likes", PostsController.toggleLike);
 router.delete("/:id", PostsController.deletePost);
-router.patch("/:id", PostsController.editPostContent)
+router.patch("/:id", PostsController.editPostContent);
 
 module.exports = router;
 
-
-
 //// Password123!
-
-

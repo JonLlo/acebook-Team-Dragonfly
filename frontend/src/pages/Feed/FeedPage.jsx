@@ -8,7 +8,6 @@ import "./FeedPage.css";
 import Navbar from "../../components/Navbar";
 import CreatePost from "../../components/CreatePost";
 
-
 export function FeedPage() {
   //   let hardcoded_post = {
 
@@ -38,9 +37,8 @@ export function FeedPage() {
         .then((data) => {
           setPosts(data.posts);
           localStorage.setItem("token", data.token);
-          console.log("TOKENTOKEN", data.token)
-          console.log("POSTPOST", data.posts)
-
+          console.log("TOKENTOKEN", data.token);
+          console.log("POSTPOST", data.posts);
         })
         .catch((err) => {
           console.error(err);
@@ -81,9 +79,7 @@ export function FeedPage() {
         ) : null;
       })}
       </div>
-    </div>  
       {/* <PostList /> */}
-
     </>
   );
 }

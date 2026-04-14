@@ -21,10 +21,9 @@ export async function updateUserProfile(userId, formData) {
   return data;
 }
 
-
 export async function getMyProfile() {
   const token = localStorage.getItem("token");
-  console.log("Token------>>>",token);
+  console.log("Token------>>>", token);
 
   const response = await fetch(`${BACKEND_URL}/users/me`, {
     method: "GET",

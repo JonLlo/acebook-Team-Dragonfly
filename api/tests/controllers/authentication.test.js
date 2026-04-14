@@ -2,7 +2,7 @@ const app = require("../../app");
 const supertest = require("supertest");
 require("../mongodb_helper");
 const User = require("../../models/user");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 
 describe("/tokens", () => {
   beforeAll(async () => {
@@ -31,7 +31,7 @@ describe("/tokens", () => {
     const response = await testApp
       .post("/tokens")
       .send({ email: "auth-test@test.com", password: "12345678" });
-    
+
     expect(response.status).toEqual(201);
     expect(response.body.token).not.toEqual(undefined);
     expect(response.body.message).toEqual("OK");

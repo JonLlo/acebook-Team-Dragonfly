@@ -2,18 +2,16 @@ const JWT = require("jsonwebtoken");
 
 // Middleware function to check for valid tokens
 function tokenChecker(req, res, next) {
-  console.log("REQUEST HEADERS HERE: ", req.headers)
+  console.log("REQUEST HEADERS HERE: ", req.headers);
   let token;
   const authHeader = req.headers["authorization"];
-
-
 
   console.log("AUTH HEADER:", authHeader);
 
   if (authHeader) {
     token = authHeader.slice(7);
   }
-  console.log("t", token)
+  console.log("t", token);
 
   try {
     const payload = JWT.verify(token, process.env.JWT_SECRET);
