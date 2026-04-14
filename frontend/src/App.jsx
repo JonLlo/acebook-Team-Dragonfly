@@ -7,6 +7,7 @@ import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
 import { ProfilePage } from "./pages/Profile/ProfilePage";
+import Footer from "./components/Footer";
 
 // docs: https://reactrouter.com/en/main/start/overview
 const protectedRoute = (element) => <ProtectedRoute>{element}</ProtectedRoute>;
@@ -27,6 +28,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <Footer />
     </>
   );
 }

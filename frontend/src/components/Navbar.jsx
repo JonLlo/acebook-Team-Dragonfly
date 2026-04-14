@@ -1,50 +1,59 @@
 import "./Navbar.css";
 import LogoutButton from "./LogoutButton";
+import { useLocation, Link } from "react-router-dom";
 
 const Navbar = () => {
   const isLoggedIn = !!localStorage.getItem("token");
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <img
-          src="/small-logo.png"
-          alt="Acebook Small Logo"
-          className="logo-left"
-        />
+        <Link to="/posts">
+          <img
+            src="/small-logo.png"
+            alt="Acebook Small Logo"
+            className="logo-left"
+          />
+        </Link>
       </div>
+
       <div className="navbar-center">
         {isLoggedIn && (
           <ul className="nav-links">
             <li>
-              <a href="/posts">Feed</a>
+              <Link to="/posts">Feed</Link>
             </li>
             <li>
-              <a href="/profile">Profile</a>
+              <Link to="/profile">Profile</Link>
             </li>
             <li>
-              <a href="/posts">Notifications</a>
+              <Link to="/posts">Notifications</Link>
             </li>
           </ul>
-        )}{" "}
+        )}
       </div>
+
       <div className="navbar-right">
         {isLoggedIn && (
-          <a href="/" className="logging-out">
+          <div className="logging-out">
             <LogoutButton />
-          </a>
+          </div>
         )}
       </div>
+
       <div className="navbar-loggedout">
-        {!isLoggedIn && ( // and on the login page, want to just show sign up button
-          <a href="/signup" className="signup-btn">
+        {!isLoggedIn && currentPath !== "/signup" && (
+          <Link to="/signup" className="signup-btn">
             Sign Up
-          </a>
+          </Link>
         )}
-        {!isLoggedIn && ( // and on the sign up page show the login button
-          <a href="/login" className="login-btn">
+
+        {!isLoggedIn && currentPath !== "/login" && (
+          <Link to="/login" className="login-btn">
             Log in
-          </a>
+          </Link>
         )}
       </div>
     </nav>
