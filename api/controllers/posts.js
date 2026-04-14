@@ -138,9 +138,12 @@ async function createComment(req, res) {
   console.log('running')
   try { 
     const postId = req.params.id;
+    console.log(postId)
+
+    console.log("PostID")
 
     //check for comment text
-    console.log('req body here', req)
+    console.log('req body here------>', req.body.commentContent)
     const commentContent = req.body.commentContent;
     if (!commentContent) {
       console.log('COMMENT CONTENT DOES NOT EXIST')
@@ -178,10 +181,10 @@ async function createComment(req, res) {
 
     });
   } catch (error) {
-    console.log('NOT WORKING')
-    // return res.status(500).json({
-    //   message: "Server error adding comment",
-    // });
+    console.error('NOT WORKING', error)
+    return res.status(500).json({
+      message: "Server error adding comment",
+    });
   }
 }
 /*Functionality user clicks like button
