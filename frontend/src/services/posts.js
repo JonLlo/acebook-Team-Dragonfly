@@ -15,7 +15,6 @@ export async function getPosts(token) {
 
   if (response.status !== 200) {
     throw new Error("HELLO Unable to fetch posts");
-    
   }
 
   const data = await response.json();
