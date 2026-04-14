@@ -1,10 +1,9 @@
-const Comments = (props) => {
+const Comment = (props) => {
   return (
     <div>
       {props.comments && props.comments.length > 0 ? (
         props.comments.map((comment) => (
           <div key={comment._id} className="comment">
-            <p>comment:</p>
             <p>{comment.commentContent}</p>
           </div>
         ))
@@ -15,4 +14,4 @@ const Comments = (props) => {
   );
 };
 
-export default Comments;
+export default Comment;
