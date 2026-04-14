@@ -95,8 +95,14 @@ describe("/posts", () => {
 
   describe("GET, when token is present", () => {
     test("the response code is 200", async () => {
-      await new Post({ postContent: "I love all my children equally", authorId: user._id }).save();
-      await new Post({ postContent: "I've never cared for GOB", authorId: user._id }).save();
+      await new Post({
+        postContent: "I love all my children equally",
+        authorId: user._id,
+      }).save();
+      await new Post({
+        postContent: "I've never cared for GOB",
+        authorId: user._id,
+      }).save();
 
       const response = await request(app)
         .get("/posts")

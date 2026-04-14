@@ -11,10 +11,10 @@ function ProfileUserPosts({ posts, onPostUpdated }) {
 
       <div className="user-posts__list">
         {posts.map((post) => (
-          <ProfilePostCard 
-          key={post._id} 
-          post={post}
-          onPostUpdated={onPostUpdated}
+          <ProfilePostCard
+            key={post._id}
+            post={post}
+            onPostUpdated={onPostUpdated}
           />
         ))}
       </div>

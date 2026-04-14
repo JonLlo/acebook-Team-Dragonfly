@@ -5,7 +5,7 @@
   background-color: #f6f4f0;
   color: #000000;
   padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 40px;
 }
 
@@ -29,7 +29,7 @@ img {
 
 .navbar-center .nav-links li {
   margin-right: 5rem;
-  margin-left: 5rem
+  margin-left: 5rem;
 }
 
 .navbar-center .nav-links a {
@@ -66,9 +66,9 @@ img {
 }
 
 .navbar-loggedout .login-btn:hover {
-    color: #4a951c;
+  color: #4a951c;
 }
 
 .navbar-loggedout .signup-btn:hover {
-    color: #4a951c;
+  color: #4a951c;
 }

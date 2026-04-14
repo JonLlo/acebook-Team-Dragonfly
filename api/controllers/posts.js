@@ -48,8 +48,6 @@ async function getAllPosts(req, res) {
       createdAt: post.createdAt,
       updatedAt: post.updatedAt,
 
-  
-
       author: post.authorId
         ? {
             _id: post.authorId._id,
@@ -85,13 +83,11 @@ async function getAllPosts(req, res) {
         })),
     }));
 
-  const token = generateToken(req.user_id);
+    const token = generateToken(req.user_id);
     return res.status(200).json({
       posts: formattedPosts,
-      token: token
+      token: token,
     });
-
-
   } catch (err) {
     console.error("GET POSTS ERROR:", err);
     return res.status(500).json({
@@ -104,7 +100,6 @@ async function createPost(req, res) {
   try {
     const postContent = req.body.postContent;
     const postImage = req.body.postImage;
-    
 
     if (!postContent) {
       return res.status(400).json({
@@ -115,7 +110,6 @@ async function createPost(req, res) {
       authorId: req.user_id,
       postContent,
       postImage,
-      
     }).save();
 
     const populatedPost = await Post.findById(post.id).populate(
@@ -135,21 +129,21 @@ async function createPost(req, res) {
 }
 
 async function createComment(req, res) {
-  console.log('running')
-  try { 
+  console.log("running");
+  try {
     const postId = req.params.id;
-    console.log(postId)
+    console.log(postId);
 
-    console.log("PostID")
+    console.log("PostID");
 
     //check for comment text
-    console.log('req body here------>', req.body.commentContent)
+    console.log("req body here------>", req.body.commentContent);
     const commentContent = req.body.commentContent;
     if (!commentContent) {
-      console.log('COMMENT CONTENT DOES NOT EXIST')
+      console.log("COMMENT CONTENT DOES NOT EXIST");
       res.status(400).json({ message: "Comment content is required" });
     }
-    console.log('COMMENT CONTENT IS')
+    console.log("COMMENT CONTENT IS");
 
     //check post exists
     const post = await Post.findById(postId);
@@ -178,10 +172,9 @@ async function createComment(req, res) {
     return res.status(201).json({
       message: "Comment added",
       comment: populatedComment,
-
     });
   } catch (error) {
-    console.error('NOT WORKING', error)
+    console.error("NOT WORKING", error);
     return res.status(500).json({
       message: "Server error adding comment",
     });
@@ -235,24 +228,26 @@ async function toggleLike(req, res) {
 //MongoDB does not implement Cascade
 //When a post is deleted any commemts are left as orphned docs,
 // Need to delete any comments first - won't be a link to access comments through posts if deleted first
-async function deletePost(req,res){
+async function deletePost(req, res) {
   const postId = req.params.id;
   const userId = req.user_id;
   try {
-   
     const post = await Post.findById(postId);
 
-    if(!post){
-      return res.status(400).json({message: "Post does not exist"})
-    };
+    if (!post) {
+      return res.status(400).json({ message: "Post does not exist" });
+    }
 
     //check that the post author id is in fact the same as the user ID
-    if(post.authorId.toString() !== userId){
-      return res.status(403).json({message: "Not authorised to delete this post - the post does not belong to you!"})
-    };
+    if (post.authorId.toString() !== userId) {
+      return res.status(403).json({
+        message:
+          "Not authorised to delete this post - the post does not belong to you!",
+      });
+    }
 
     //delete any comments owned by the post
-    await Comment.deleteMany({ postId:postId });
+    await Comment.deleteMany({ postId: postId });
 
     //delete post
     await Post.findByIdAndDelete(postId);
@@ -260,72 +255,69 @@ async function deletePost(req,res){
     return res.status(200).json({
       message: "Post successfully deleted",
       deletedPostId: postId,
-    })
-
-
-  }catch(error){
-    console.error("DELETE POST ERROR", error)
+    });
+  } catch (error) {
+    console.error("DELETE POST ERROR", error);
     return res.status(500).json({
       message: "Server error deleting post",
-    })
-
+    });
   }
 }
 
 //update Post - content body only
- async function editPostContent(req,res){
-  try{
+async function editPostContent(req, res) {
+  try {
     const postId = req.params.id;
     const userId = req.user_id;
     const { postContent } = req.body;
 
     const post = await Post.findById(postId);
 
-    if(!post){
-      return res.status(404).json({message: "Post does not exist"})
+    if (!post) {
+      return res.status(404).json({ message: "Post does not exist" });
     }
 
-    if (post.authorId.toString() !== userId){
-      return res.status(403).json({message: "You are not authorised to edit this post"});
+    if (post.authorId.toString() !== userId) {
+      return res
+        .status(403)
+        .json({ message: "You are not authorised to edit this post" });
     }
 
-    if(!postContent){
-      return res.status(400).json({message: "No post content provided"})
+    if (!postContent) {
+      return res.status(400).json({ message: "No post content provided" });
     }
-    //replace current postContent 
+    //replace current postContent
     post.postContent = postContent;
     //save update to db
     await post.save();
 
     return res.status(200).json({
       message: "Post updated",
-      post:{
-        _id:post._id,
-        postContent:postContent,
-        postImage:post.postImage,
-        createdAt:post.createdAt,
+      post: {
+        _id: post._id,
+        postContent: postContent,
+        postImage: post.postImage,
+        createdAt: post.createdAt,
         updatedAt: post.updatedAt,
-        likesCount:post.likes.length,
-        commentsCount:post.comments.length,
+        likesCount: post.likes.length,
+        commentsCount: post.comments.length,
       },
     });
-
-  }catch(error){
-    console.error("EDIT POST ERROR", error)
+  } catch (error) {
+    console.error("EDIT POST ERROR", error);
     return res.status(500).json({
-    message: "Server error editing post content",
-    })
+      message: "Server error editing post content",
+    });
   }
- }
-
+}
 
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   createComment: createComment,
   toggleLike: toggleLike,
-  deletePost:deletePost,
-  editPostContent:editPostContent
+  deletePost: deletePost,
+  editPostContent: editPostContent,
 };
 
 module.exports = PostsController;
