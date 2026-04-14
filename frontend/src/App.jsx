@@ -8,32 +8,19 @@ import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
 import { ProfilePage } from "./pages/Profile/ProfilePage";
 
-
 // docs: https://reactrouter.com/en/main/start/overview
+const protectedRoute = (element) => <ProtectedRoute>{element}</ProtectedRoute>;
+
+const guestOnlyRoute = (element) => (
+  <ProtectedRoute ifAuthenticated>{element}</ProtectedRoute>
+);
+
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePage />,
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/signup",
-    element: <SignupPage />,
-  },
-  {
-    path: "/profile",
-    element: <ProfilePage />,
-  },
-  {
-    path: "/posts",
-    element: (
-    <ProtectedRoute>
-      <FeedPage />
-    </ProtectedRoute>
-    )},
+  { path: "/", element: <HomePage /> },
+  { path: "/signup", element: <SignupPage /> },
+  { path: "/login", element: guestOnlyRoute(<LoginPage />) },
+  { path: "/posts", element: protectedRoute(<FeedPage />) },
+  { path: "/profile", element: protectedRoute(<ProfilePage />) },
 ]);
 
 function App() {
