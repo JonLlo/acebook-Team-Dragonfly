@@ -7,11 +7,13 @@ async function create(req, res) {
     const {
       firstName,
       surname,
-      userImage,
+      // userImage, ---> need to remove userImage from req.body as it will be in req.file
       userBiography,
       email,
       password: plainTextPassword,
     } = req.body;
+
+    const userImage = req.file ? req.file.filename : undefined;
 
     const password = await bcrypt.hash(plainTextPassword, 10);
 
