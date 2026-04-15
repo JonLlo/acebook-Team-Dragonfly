@@ -42,11 +42,11 @@ export function FeedPage() {
           navigate("/login");
         });
     }
-  }, [navigate]);
+  }, []);
 
-  const handlePostCreated = (newPost) => {
-    setPosts([newPost, ...posts]);
-  };
+const handlePostCreated = (newPost) => {
+  setPosts((prevPosts) => [newPost, ...prevPosts]);
+};
 
   const token = localStorage.getItem("token");
   if (!token) {
