@@ -12,14 +12,14 @@ import Footer from "./components/Footer";
 // docs: https://reactrouter.com/en/main/start/overview
 const protectedRoute = (element) => <ProtectedRoute>{element}</ProtectedRoute>;
 
-const guestOnlyRoute = (element) => (
-  <ProtectedRoute ifAuthenticated>{element}</ProtectedRoute>
-);
+// const guestOnlyRoute = (element) => (
+//   <ProtectedRoute ifAuthenticated>{element}</ProtectedRoute>
+// );
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
   { path: "/signup", element: <SignupPage /> },
-  { path: "/login", element: guestOnlyRoute(<LoginPage />) },
+  { path: "/login", element: <LoginPage /> },
   { path: "/posts", element: protectedRoute(<FeedPage />) },
   { path: "/profile", element: protectedRoute(<ProfilePage />) },
 ]);

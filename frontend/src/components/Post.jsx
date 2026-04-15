@@ -94,12 +94,10 @@ const Post = (props) => {
       style={{ borderBottom: "1px solid #eee", padding: "20px" }}
     >
       <PostInfo
-        authorName={props.authorId}
+        author={props.author}
         content={props.postContent}
-        img={props.image}
-        datetime={props.datetime}
+        datetime={props.createdAt}
       />
-
       <div className="like-section">
         <LikeButton youLike={youLike} ToggleYouLike={handleLikeToggle} />
         <span>{likesCount} Likes</span>
