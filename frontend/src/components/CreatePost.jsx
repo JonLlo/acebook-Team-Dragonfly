@@ -10,7 +10,7 @@ const CreatePost = (props) => {
     const [postImage, setPostImage] = useState("");
     const [posts, setPosts] = useState(props.posts || []);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         fetch("http://localhost:3000/posts")
