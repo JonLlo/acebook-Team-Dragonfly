@@ -23,6 +23,11 @@ const PostInfo = (props) => {
       <p className="datetime">
         <small>{props.datetime}</small>
       </p>
+      <img
+            src={props.author?.userImage}
+            alt="avatar"
+            style={{ width: "70px", height: "70px", borderRadius: "50%" }}
+          />
     </div>
   );
 };
