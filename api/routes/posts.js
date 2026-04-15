@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
-
-const tokenChecker = require("../middleware/tokenChecker");
 const PostsController = require("../controllers/posts");
 
-// Public route
-router.get("/", tokenChecker, PostsController.getAllPosts);
+
+
 
 // Protected routes
+router.get("/", PostsController.getAllPosts);
 router.post("/", PostsController.createPost);
 router.post("/:id/comments", PostsController.createComment);
 router.patch("/:id/likes", PostsController.toggleLike);

@@ -2,8 +2,9 @@
 import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { editPostContent } from "../services/posts";
+import { deletePost } from "../services/posts";
 
-function ProfilePostCard({ post, onPostUpdated }) {
+function ProfilePostCard({ post, onPostUpdated, onPostDeleted }) {
   // const formattedDate = new Date(post.createdAt).toLocaleString("en-GB");
   const timeSincePosted = formatDistanceToNow(new Date(post.createdAt), {
     addSuffix: true,
@@ -26,10 +27,7 @@ function ProfilePostCard({ post, onPostUpdated }) {
   };
 
   const handleSave = async () => {
-    if (!editedContent.trim()) {
-      setError("Post content cannot be blank");
-      return;
-    }
+    
     try {
       setError("");
       const data = await editPostContent(post._id, {
@@ -41,6 +39,23 @@ function ProfilePostCard({ post, onPostUpdated }) {
       setError(error.message || "Failed to updte post content");
     }
   };
+
+  const handleDelete = async () => {
+    const confirm = window.confirm("Confirm to delete");
+    if(!confirm){
+      return
+    }
+    try{
+        console.log("POst ID to delete---->>", post._id)
+      const data = await deletePost(post._id);
+      onPostDeleted(data.deletedPostId);
+
+
+    }catch(error){
+      setError(error.message || "Unable to delete post.")
+
+    }
+  }
 
   return (
     <article className="post-card">
@@ -60,6 +75,7 @@ function ProfilePostCard({ post, onPostUpdated }) {
                 {" "}
                 Cancel
               </button>
+             
             </div>
             {error && <p>{error}</p>}
           </>
@@ -70,6 +86,7 @@ function ProfilePostCard({ post, onPostUpdated }) {
               <button type="button" onClick={handleEditClick}>
                 Edit
               </button>
+                <button type="button" onClick={handleDelete}> Delete</button>
             </div>
             {error && <p>{error}</p>}
           </>

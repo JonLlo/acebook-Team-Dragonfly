@@ -117,3 +117,20 @@ export async function editPostContent(postId, postUpdates) {
   }
   return data;
 }
+
+//Delete post inside User Profile
+export async function deletePost(postId){
+  const token = localStorage.getItem("token");
+  const response = await fetch(`${BACKEND_URL}/posts/${postId}`, {
+     method: "DELETE",
+     headers: {
+     "Content-Type": "application/json",
+     "Authorization": `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  if(!response.ok){
+    throw new Error(data.message || "Server failed to delete post.")
+  }
+  return data;
+}
