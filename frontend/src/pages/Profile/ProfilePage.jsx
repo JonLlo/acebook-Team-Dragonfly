@@ -37,6 +37,16 @@ export function ProfilePage() {
       ),
     }));
   };
+
+  const handlePostDeleted = (deletedPostId) =>{
+    setProfileData((currentData) => ({
+      ...currentData,
+      post:currentData.post.filter(
+        (post) => post._id !==deletedPostId
+      ),
+    }));
+  }
+
   if (errorMessage) {
     return <p>{errorMessage}</p>;
   }
@@ -57,6 +67,7 @@ export function ProfilePage() {
         <ProfileUserPosts
           posts={profileData.post}
           onPostUpdated={handlePostUpdated}
+          onPostDeleted={handlePostDeleted}
         />
       </div>
     </>

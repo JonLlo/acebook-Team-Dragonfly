@@ -78,10 +78,11 @@ async function getUserProfile(req, res) {
             : null,
         })),
     }));
+    console.log(formattedPosts)
     return res.status(200).json({
       user: {
         _id: user._id,
-        firstname: user.firstName,
+        firstName: user.firstName,
         surname: user.surname,
         userImage: user.userImage,
         userBiography: user.userBiography,
