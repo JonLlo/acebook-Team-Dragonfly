@@ -102,6 +102,9 @@ async function getUserProfile(req, res) {
 
 async function editUserProfile(req, res) {
   console.log("INSIDE EDITUSERPROFILE()");
+  console.log("REQ HEADERS:---->", req.headers['content-type']);
+  console.log("REQ FILE:---->", req.file);
+console.log("REQ FILES:---->", req.files);
   try {
     //check user requesting edit is the same as the looged in user
     const id = req.params.id;
@@ -133,8 +136,7 @@ async function editUserProfile(req, res) {
         updatesTo["userImage"] = req.file.filename;
       }
       console.log("REC FILE AFTER: ---->", req.file);
-      console.log("UPDATESTO AFTER", updatesTo);
-    console.log("ALLOWED UPDATES: ---->", updatesTo);
+      console.log("ALLOWED UPDATES: ---->", updatesTo);
 
     const updatedProfile = await User.findByIdAndUpdate(
       req.user_id,
