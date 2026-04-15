@@ -1,27 +1,32 @@
 .home {
-  min-height: 10vh;
+  min-height: 100vh;
   background-color: #f6f4f0;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Horizontal center */
-  justify-content: center; /* Vertical center */
-  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.home-logo {
+  width: 200px;
+  height: auto;
 }
 
 .home-links {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
   gap: 15px;
 }
-.button-signUp {
-  background-color: #000000;
-  color: #f6f4f0;
-  padding: 10px 20px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-}
 
+.button-signUp,
 .button-login {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
   background-color: #000000;
   color: #f6f4f0;
   padding: 10px 20px;

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post";
 // import LogoutButton from "../../components/LogoutButton";
@@ -11,25 +10,20 @@ import CreatePost from "../../components/CreatePost";
 
 export function FeedPage() {
   //   let hardcoded_post = {
-
   //   postContent: "this is a post",
   //   authorImage: "../public/images/defaultAvatar",
   //   comments: {"com_test": "com_test2"},
   //   likes: {"like_test": "like_test2"},
   // }
   //   let hardcoded_post_2 = {
-
   //   postContent: "this is a post",
   //   authorImage: "../public/images/defaultAvatar",
   //   comments: {"com_test": "com_test2"},
   //   likes: {"like_test": "like_test2"},
   // }
-
   const [posts, setPosts] = useState([]);
   //console.log(`HERE! POSTS:` +  posts)
-
   const navigate = useNavigate();
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     const loggedIn = token !== null;
@@ -44,6 +38,7 @@ export function FeedPage() {
         })
         .catch((err) => {
           console.error(err);
+          localStorage.removeItem("token");
           navigate("/login");
         });
     }

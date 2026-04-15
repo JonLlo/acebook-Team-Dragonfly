@@ -1,25 +1,34 @@
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+
   background-color: #f6f4f0;
   color: #000000;
-  padding: 1rem;
+  padding: 1rem 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 40px;
+
+  position: sticky;
 }
 
-img {
-  border-radius: 8px;
+.navbar-left,
+.navbar-right {
+  display: flex;
+  align-items: center;
 }
 
-.navbar-left .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #fff;
-  text-decoration: none;
+.navbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
+/* Nav links layout */
 .navbar-center .nav-links {
   list-style-type: none;
   display: flex;
@@ -28,22 +37,29 @@ img {
 }
 
 .navbar-center .nav-links li {
-  margin-right: 5rem;
-  margin-left: 5rem;
+  margin: 0 1rem;
 }
 
 .navbar-center .nav-links a {
   color: #000000;
   text-decoration: none;
-}
-
-.navbar-right {
-  display: flex;
-  align-items: center;
+  display: inline-block;
+  padding: 20px 32px;
 }
 
 .navbar-center .nav-links a:hover {
   color: #4a951c;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+}
+
+
+.navbar-right {
+  margin-right: 1rem;
+}
+.navbar-loggedout {
+  display: flex;
+  align-items: center;
 }
 
 .navbar-loggedout .signup-btn {
@@ -65,10 +81,7 @@ img {
   font-weight: bold;
 }
 
-.navbar-loggedout .login-btn:hover {
-  color: #4a951c;
-}
-
+.navbar-loggedout .login-btn:hover,
 .navbar-loggedout .signup-btn:hover {
   color: #4a951c;
 }
