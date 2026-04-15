@@ -38,33 +38,8 @@ const Post = (props) => {
       console.error("Failed to toggle like", err);
     }
 
-    //keeping in UI
-    // setYouLike(!youLike);
-    // setLikesCount(youLike ? likesCount -1 : likesCount + 1);
+
   };
-
-  // async function handleSubmitComment(event) {
-  //   event.preventDefault();
-
-  //   const token = localStorage.getItem("token");
-
-  //   if (commentContent.trim() === "") {
-  //     setError("Please enter a valid comment");
-  //     //alert("Please enter a valid comment");
-  //     return
-  //   }
-
-  //   try {
-  //     //alert('Thanks for commenting!')
-  //     await addCommentToPost(props._id, commentContent, token);
-  //     setCommentContent(comments)
-
-  //   } catch (err) {
-  //     //alert('yoyo2')
-  //     console.error(err);
-  //     setError(["Signup failed. Please try again."]);
-  //   }
-  // }
 
   async function handleSubmitComment(event) {
     event.preventDefault();
@@ -119,12 +94,10 @@ const Post = (props) => {
       style={{ borderBottom: "1px solid #eee", padding: "20px" }}
     >
       <PostInfo
-        authorName={props.authorId}
+        author={props.author}
         content={props.postContent}
-        img={props.image}
-        datetime={props.datetime}
+        datetime={props.createdAt}
       />
-
       <div className="like-section">
         <LikeButton youLike={youLike} ToggleYouLike={handleLikeToggle} />
         <span>{likesCount} Likes</span>

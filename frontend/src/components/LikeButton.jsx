@@ -16,10 +16,12 @@
 //     </button>
 //   );
 // };
+import "./LikeButton.css";
 
 const LikeButton = (props) => {
   return (
-    <button onClick={() => props.ToggleYouLike(props.youLike)}>
+    <button className="like-button"
+    onClick={() => props.ToggleYouLike(props.youLike)}>
       {props.youLike ? "❤️ Liked" : "🤍 Like"}
     </button>
   );
