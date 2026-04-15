@@ -88,7 +88,7 @@ const Post = (props) => {
   function handleCommentContentChange(event) {
     setCommentContent(event.target.value);
   }
-  
+  console.log('COMP:PROPS', props)
   return (
     
     <div
@@ -99,8 +99,10 @@ const Post = (props) => {
         author={props.author}
         content={props.postContent}
         datetime={props.createdAt}
-        // userImage={props.author.userImage}
+        // img = {props.postImage}
+        userImage={props.author?.userImage}
       />
+
       <div className="like-section">
         <LikeButton youLike={youLike} ToggleYouLike={handleLikeToggle} />
         <span>{likesCount} Likes</span>
