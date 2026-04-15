@@ -59,8 +59,8 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
 
       <div className="profile-header__info">
         {isEditing ? (
-          <form onSubmit={handleSubmit}>
-            <div>
+          <form className="profile-header__form" onSubmit={handleSubmit}>
+            <div className="profile-header__field">
               <label htmlFor="firstName">First name</label>
               <input
                 id="firstName"
@@ -70,7 +70,7 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
               />
             </div>
 
-            <div>
+            <div className="profile-heaader__field">
               <label htmlFor="surname">Surname</label>
               <input
                 id="surname"
@@ -80,7 +80,7 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
               />
             </div>
 
-            <div>
+            <div className="profile-heaader__field">
               <label htmlFor="email">Email</label>
               <input
                 id="email"
@@ -90,7 +90,7 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
               />
             </div>
 
-            <div>
+            <div className="profile-heaader__field">
               <label htmlFor="userBiography">Biography</label>
               <textarea
                 id="userBiography"
@@ -100,27 +100,27 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
               />
             </div>
 
-            <button type="submit">Save</button>
-            <button type="button" onClick={handleCancel}>
+            <button className="profile-header__button-row" type="submit">Save</button>
+            <button className="profile-header__button-row" type="button" onClick={handleCancel}>
               Cancel
             </button>
 
-            {error && <p>{error}</p>}
+            {error && <p className="profile-header__error">{error}</p>}
           </form>
         ) : (
           <>
             <h1>
               {user.firstName} {user.surname}
             </h1>
-            {user.userBiography && <p>{user.userBiography}</p>}
-            <p>{user.email}</p>
-            <p>Posts: {postsCount}</p>
+            {user.userBiography && <p className="profile-header__bio">{user.userBiography}</p>}
+            <p className="profile-header__email">{user.email}</p>
+            <p className="profile-header__count">Posts: {postsCount}</p>
 
-            <button type="button" onClick={handleEditClick}>
+            <button  className="profile-header__button-row"  type="button" onClick={handleEditClick}>
               Edit profile
             </button>
 
-            {error && <p>{error}</p>}
+            {error && <p className="profile-header__error">{error}</p>}
           </>
         )}
       </div>

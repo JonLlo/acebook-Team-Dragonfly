@@ -71,24 +71,24 @@ function ProfilePostCard({ post, onPostUpdated, onPostDeleted }) {
                 {" "}
                 Save
               </button>
-              <button type="button" onClick={handleCancel}>
+              <button className="secondary" type="button" onClick={handleCancel}>
                 {" "}
                 Cancel
               </button>
              
             </div>
-            {error && <p>{error}</p>}
+            {error && <p className="post-card__error">{error}</p>}
           </>
         ) : (
           <>
             <p>{post.postContent}</p>
-            <div>
-              <button type="button" onClick={handleEditClick}>
+            <div className="post-card__button-row">
+              <button  type="button" onClick={handleEditClick}>
                 Edit
               </button>
-                <button type="button" onClick={handleDelete}> Delete</button>
+                <button className="secondary" type="button" onClick={handleDelete}> Delete</button>
             </div>
-            {error && <p>{error}</p>}
+            {error && <p className="post-card__error">{error}</p>}
           </>
         )}
       </div>
@@ -103,8 +103,8 @@ function ProfilePostCard({ post, onPostUpdated, onPostDeleted }) {
       </div>
 
       <div className="post-card__stats">
-        <span>Likes: {post.likesCount}</span>
-        <span>Comments: {post.commentsCount}</span>
+        <span className="post-card__stat">Likes: {post.likesCount}</span>
+        <span className="post-card__stat">Comments: {post.commentsCount}</span>
       </div>
     </article>
   );

@@ -57,7 +57,7 @@ export function ProfilePage() {
 
   return (
     <>
-      <Navbar />
+     <Navbar /> 
       <div className="profile-page">
         <ProfileHeader
           user={profileData.user}
