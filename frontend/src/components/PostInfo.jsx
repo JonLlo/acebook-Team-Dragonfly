@@ -1,6 +1,7 @@
 import "./PostInfo.css";
 
 const PostInfo = (props) => {
+   console.log("PROPS--->", props)
   // We need to extract the string values from the object
   // We use "Optional Chaining" (?.) to prevent crashes if authorName is missing
   const displayName = props.author?.firstName 
@@ -11,9 +12,9 @@ const PostInfo = (props) => {
     
     <div className="aPost">
       <div className="postHeader">
-        {props.author.userImage && (
-        <img className="postImg" src={props.author.userImage} alt="Post content" style={{ width: "80px", height: "80px", borderRadius: "50%" }}/>
-      )}
+        {/* {props.post.authorId.userImage && (
+        <img className="postImg" src={props.post.authorId.userImage} alt="Post content" style={{ width: "80px", height: "80px", borderRadius: "50%" }}/>
+      )} */}
       <h3 className="authorName">{displayName}</h3>
       </div>
       

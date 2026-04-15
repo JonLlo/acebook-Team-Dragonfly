@@ -15,6 +15,7 @@ const Post = (props) => {
   const [comments, setComments] = useState(props.comments || []);
   const [commentContent, setCommentContent] = useState("");
   const [error, setError] = useState("");
+  console.log("HERE--->", props)
 
   const handleLikeToggle = async () => {
     const token = localStorage.getItem("token");
@@ -87,8 +88,9 @@ const Post = (props) => {
   function handleCommentContentChange(event) {
     setCommentContent(event.target.value);
   }
-
+  
   return (
+    
     <div
       className="post-container"
       style={{ borderBottom: "1px solid #eee", padding: "20px" }}
@@ -97,6 +99,7 @@ const Post = (props) => {
         author={props.author}
         content={props.postContent}
         datetime={props.createdAt}
+        // userImage={props.author.userImage}
       />
       <div className="like-section">
         <LikeButton youLike={youLike} ToggleYouLike={handleLikeToggle} />
@@ -117,7 +120,7 @@ const Post = (props) => {
         <Comment comments={comments} />
       </div>
     </div>
-  );
+);
 };
 
 export default Post;

@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "./CreatePost.css";
-
-
+import { useNavigate } from "react-router-dom"
 
 
 const CreatePost = (props) => {
     const [postContent, setPostContent] = useState("");
     const [postImage, setPostImage] = useState("");
     const [posts, setPosts] = useState(props.posts || []);
-
-  const navigate = useNavigate();
+    const navigate = useNavigate()
 
   useEffect(() => {
     fetch("http://localhost:3000/posts")
@@ -23,6 +20,7 @@ const CreatePost = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const token = localStorage.getItem("token");
+    console.log("TOKEN---->", token)
 
         const postInfo = {
             postContent: postContent, 
@@ -37,12 +35,16 @@ const CreatePost = (props) => {
             body: JSON.stringify(postInfo),
         })
             .then((res) => {
+              console.log("RES1--->", res.json())
                 if (res.status === 401 || res.status === 403) {
+                    console.log("RES2--->", res.json())
                     throw new Error("your session expired. Please log in again.")
                 }
+                console.log("RES3--->", res.json())
                 return res.json();
             })
-            .then((newPost) => {
+            .then((newPost) => { 
+              console.log("NEWPOST--->", newPost)
                 setPostContent("");
                 setPostImage("");
 
@@ -55,35 +57,13 @@ const CreatePost = (props) => {
                 console.log("FEATHER ", props.posts)
                 // console.log("updated post here", updatedPosts)
                 // setPosts(updatedPosts)
+                navigate("/posts")
             })
             .catch((error) => {
                 console.log("Post failed error:", error);
             });
     };
-    fetch("http://localhost:3000/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/JSON",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(postInfo),
-    })
-      .then((res) => {
-        if (res.status === 401 || res.status === 403) {
-          throw new Error("your session expired. Please log in again.");
-        }
-        return res.json();
-      })
-      .then((newPost) => {
-        setPostContent("");
-        setPostImage("");
-
-        navigate("/posts");
-      })
-      .catch((error) => {
-        console.log("Post failed error:", error);
-      });
-  };
+    
   return (
     <div className="createPost">
       <div className="submitForm">
