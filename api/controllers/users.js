@@ -13,6 +13,7 @@ async function create(req, res) {
       password: plainTextPassword,
     } = req.body;
 
+    // if a file was uploaded use the filename, otherwise go with default
     const userImage = req.file ? req.file.filename : undefined;
 
     const password = await bcrypt.hash(plainTextPassword, 10);
@@ -116,13 +117,23 @@ async function editUserProfile(req, res) {
     const allowedFields = ["firstName", "surname", "userBiography"];
     const updatesTo = {};
 
+    console.log("REC FILE BEFORE: ---->", req.file);
     //check which fields the user would like to update and include them in the updatesTo object
-
     allowedFields.forEach((field) => {
       if (req.body[field] !== undefined) {
         updatesTo[field] = req.body[field];
       }
+
+      console.log("UPDATESTO AFTER", updatesTo);
+
     });
+
+      // if the userImage file was uploaded, save the filename
+      if (req.file !== undefined) {
+        updatesTo["userImage"] = req.file.filename;
+      }
+      console.log("REC FILE AFTER: ---->", req.file);
+      console.log("UPDATESTO AFTER", updatesTo);
     console.log("ALLOWED UPDATES: ---->", updatesTo);
 
     const updatedProfile = await User.findByIdAndUpdate(
@@ -133,7 +144,10 @@ async function editUserProfile(req, res) {
       },
     ).select("-password"); //do not return password
 
+    console.log("UPDATED PROFILE: ---->", updatedProfile);
+
     res.status(200).json({ user: updatedProfile });
+    //console.log("RES.FILE---->", res)
   } catch (error) {
     res.status(500).json({ message: "Error updating user profile" });
   }
