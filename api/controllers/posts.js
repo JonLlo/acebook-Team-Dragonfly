@@ -167,7 +167,7 @@ async function createComment(req, res) {
 
     const populatedComment = await Comment.findById(comment._id).populate(
       "authorId",
-      "userImage email",
+      "firstName surname userImage email",
     );
     return res.status(201).json({
       message: "Comment added",

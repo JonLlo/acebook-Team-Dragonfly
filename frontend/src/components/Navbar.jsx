@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-left">
+      <div className="navbar-section navbar-left">
         <Link to="/posts">
           <img
             src="/small-logo.png"
@@ -19,7 +19,7 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div className="navbar-center">
+      <div className="navbar-section navbar-center">
         {isLoggedIn && (
           <ul className="nav-links">
             <li>
@@ -35,25 +35,27 @@ const Navbar = () => {
         )}
       </div>
 
-      <div className="navbar-right">
+      <div className="navbar-section navbar-right">
         {isLoggedIn && (
           <div className="logging-out">
             <LogoutButton />
           </div>
         )}
-      </div>
 
-      <div className="navbar-loggedout">
-        {!isLoggedIn && currentPath !== "/signup" && (
-          <Link to="/signup" className="signup-btn">
-            Sign Up
-          </Link>
-        )}
+        {!isLoggedIn && (
+          <div className="navbar-loggedout">
+            {currentPath !== "/signup" && (
+              <Link to="/signup" className="signup-btn">
+                Sign Up
+              </Link>
+            )}
 
-        {!isLoggedIn && currentPath !== "/login" && (
-          <Link to="/login" className="login-btn">
-            Log in
-          </Link>
+            {currentPath !== "/login" && (
+              <Link to="/login" className="login-btn">
+                Log in
+              </Link>
+            )}
+          </div>
         )}
       </div>
     </nav>
