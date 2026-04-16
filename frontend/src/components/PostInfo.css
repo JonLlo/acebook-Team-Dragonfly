@@ -2,26 +2,52 @@
   display: flex;
   width: 60%;
   flex-direction: column;
-  align-items: center;
-  padding: 10px;
+  /* align-items changed to flex-start to left-align the contents */
+  align-items: flex-start; 
+  padding: 20px; /* Slightly increased padding for breathing room */
   min-height: 25vh;
   margin: 0 auto 20px auto;
   border: 2px solid #4a951c;
   border-radius: 5px;
-  background: #e5ece1
+  background: #e5ece1;
+  box-sizing: border-box;
 }
 
 .postHeader {
   display: flex;
   flex-direction: row; 
   align-items: center; 
-  justify-content: center;
+  /* justify-content changed to flex-start to anchor to the top-left */
+  justify-content: flex-start; 
   gap: 15px;           
   width: 100%;        
-  margin-bottom: 10px;
+  margin-bottom: 15px; 
 }
 
-/* Optional: remove default margins from the name to keep it perfectly aligned */
+/* We moved the inline styles from the JSX to here */
+.userAvatar {
+  width: 60px; 
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover; /* Keeps the image proportions nice and clean */
+  background-color: #fff; /* Fallback background just in case */
+}
+
 .authorName {
   margin: 0;
+  font-size: 1.1rem;
+}
+
+.postContent {
+  margin: 0 0 15px 0; /* Gives space between the post content and the date */
+  text-align: left;
+  width: 100%;
+  word-wrap: break-word; /* Prevents long unbreakable words from breaking your layout */
+}
+
+.datetime {
+  margin: 0;
+  color: #555; /* Slightly muted color for the date */
+  width: 100%;
+  text-align: left;
 }
