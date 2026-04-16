@@ -29,6 +29,14 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
       [name]: value,
     }));
   };
+  
+   // handles file input changes - stores the selected file in formData state
+  const handleUserImageChange = (event) => {
+    setFormData((currentData) => ({
+      ...currentData,
+      userImage: event.target.files[0]
+    })); 
+  };
 
   const handleCancel = () => {
     setIsEditing(false);
@@ -39,8 +47,19 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
     event.preventDefault();
     setError("");
 
+    const uploadData = new FormData();
+    // build FormData object to send text fields and file upload 
+    // together to the backend
+    uploadData.append("firstName", formData.firstName);
+    uploadData.append("surname", formData.surname);
+    if (formData.userImage != null) {
+    uploadData.append("userImage", formData.userImage)
+    };
+    uploadData.append("userBiography", formData.userBiography);
+    uploadData.append("email", formData.email);
+
     try {
-      const data = await updateUserProfile(user._id, formData);
+      const data = await updateUserProfile(user._id, uploadData);
       onProfileUpdated(data.user);
       setIsEditing(false);
     } catch (error) {
@@ -80,6 +99,16 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
                 name="surname"
                 value={formData.surname}
                 onChange={handleChange}
+              />
+            </div>
+
+            {/* file input for uploading a new profile picture */}
+            <div className="profile-header__field">
+              <label htmlFor="userImage">Profile picture:</label>
+              <input
+                id="userImage" 
+                type="file"
+                onChange={handleUserImageChange} 
               />
             </div>
 
