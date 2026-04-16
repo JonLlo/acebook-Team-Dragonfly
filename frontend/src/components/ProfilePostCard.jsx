@@ -58,47 +58,32 @@ function ProfilePostCard({ post, onPostUpdated, onPostDeleted }) {
   }
 
   return (
-    <article className="post-card">
-      <div className="post-card__content">
-        {isEditing ? (
-          <>
-            <textarea
-              value={editedContent}
-              onChange={(event) => setEditedContent(event.target.value)}
-            />
-            <div className="post-card__actions">
-              <button type="button" onClick={handleSave}>
-                {" "}
-                Save
-              </button>
-              <button className="secondary" type="button" onClick={handleCancel}>
-                {" "}
-                Cancel
-              </button>
-             
-            </div>
-            {error && <p className="post-card__error">{error}</p>}
-          </>
-        ) : (
-          <>
-            <p>{post.postContent}</p>
-            <div className="post-card__button-row">
-              <button  type="button" onClick={handleEditClick}>
-                Edit
-              </button>
-                <button className="secondary" type="button" onClick={handleDelete}> Delete</button>
-            </div>
-            {error && <p className="post-card__error">{error}</p>}
-          </>
-        )}
+ <article className="post-card">
+    {post.postImage && (
+      <div className="post-card__image-container">
+        <img className="post-card__image" src={post.postImage} alt="Post" />
       </div>
+    )}
 
-      {post.postImage && (
-        <div className="post-card__image-container">
-          <img className="post-card__image" src={post.postImage} alt="Post" />
-        </div>
+    <div className="post-card__content">
+        {isEditing ? (
+      <>
+        <textarea
+        value={editedContent}
+        onChange={(event) => setEditedContent(event.target.value)}
+        />
+        {error && <p className="post-card__error">{error}</p>}
+        </>
+      ) : (
+      <>
+        <p>{post.postContent}</p>
+        {error && <p className="post-card__error">{error}</p>}
+      </>
       )}
-      <div className="post-card__meta">
+    </div>
+
+    <div className="post-card__meta-section">
+        <div className="post-card__meta">
         <span>{timeSincePosted}</span>
       </div>
 
@@ -106,8 +91,40 @@ function ProfilePostCard({ post, onPostUpdated, onPostDeleted }) {
         <span className="post-card__stat">Likes: {post.likesCount}</span>
         <span className="post-card__stat">Comments: {post.commentsCount}</span>
       </div>
-    </article>
+    </div>
+
+  <div className="post-card__footer">
+    {isEditing ? (
+    <div className="post-card__actions">
+    <button type="button" onClick={handleSave}>
+    Save
+    </button>
+    <button
+    type="button"
+    className="secondary"
+    onClick={handleCancel}
+    >
+    Cancel
+    </button>
+  </div>
+   ) : (
+  <div className="post-card__actions">
+      <button type="button" onClick={handleEditClick}>
+      Edit
+      </button>
+      <button
+      type="button"
+      className="secondary"
+      onClick={handleDelete}
+      >
+      Delete
+      </button>
+      </div>
+    )}
+  </div>
+  </article>
   );
+
 }
 
 export default ProfilePostCard;
