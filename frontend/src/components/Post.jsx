@@ -3,58 +3,40 @@ import LikeButton from "./LikeButton";
 import PostInfo from "./PostInfo";
 import Comment from "./Comment";
 import { addCommentToPost, toggleLike } from "../services/posts";
-
-// Post.jsx
+import "./Post.css"
 
 const Post = (props) => {
-  // const [youLike, setYouLike] = useState(props.youLike); //need to get this from backend!!
-  // const [likesCount, setLikesCount] = useState(props.likes?.length || 0);
   const [youLike, setYouLike] = useState(props.likedByCurrentUser); //need to get this from backend!!
   const [likesCount, setLikesCount] = useState(props.likesCount);
-
   const [comments, setComments] = useState(props.comments || []);
   const [commentContent, setCommentContent] = useState("");
   const [error, setError] = useState("");
-  console.log("HERE--->", props)
 
   const handleLikeToggle = async () => {
     const token = localStorage.getItem("token");
-    console.log("TOKEN IN handleliketoggle", token);
 
-    if (!token) {
-      console.error("No token found in localStorage!");
-      return;
-    }
+    if (!token) return;
 
     //sending to database
     try {
-      console.log("Props here1: " + props);
-      console.log("Props here2: " + props._id);
-
       const result = await toggleLike(props._id, token);
-
       setYouLike(result.likedByCurrentUser);
       setLikesCount(result.likesCount);
     } catch (err) {
       console.error("Failed to toggle like", err);
     }
-
-
   };
 
   async function handleSubmitComment(event) {
     event.preventDefault();
-
     const token = localStorage.getItem("token");
 
     if (commentContent.trim() === "") {
       setError("Please enter a valid comment");
-      //alert("Please enter a valid comment");
       return;
     }
 
     try {
-      //alert('Thanks for commenting!')
       const newCommentObject = await addCommentToPost(
         props._id,
         commentContent,
@@ -62,7 +44,6 @@ const Post = (props) => {
       );
       const newComment = newCommentObject.comment;
 
-      console.log("new comment here", newComment);
       const normalized = {
         _id: newComment._id,
         commentContent: newComment.commentContent,
@@ -74,54 +55,60 @@ const Post = (props) => {
           surname: newComment.authorId.surname || "",
           userImage: newComment.authorId.userImage,
         },
+        isNew: true,
       };
-      console.log("comments here", [...comments, newComment]);
-      console.log("comments update", [...comments, normalized]);
       setComments([...comments, normalized]);
+      setCommentContent("");
+      setError("");
     } catch (err) {
-      //alert('yoyo2')
       console.error(err);
-      setError(["Signup failed. Please try again."]);
+      setError(["Comment failed to post. Please try again."]);
     }
   }
 
   function handleCommentContentChange(event) {
     setCommentContent(event.target.value);
   }
-  console.log('COMP:PROPS', props)
-  return (
-    
-    <div
-      className="post-container"
-      style={{ borderBottom: "1px solid #eee", padding: "20px" }}
-    >
-      <PostInfo
-        author={props.author}
-        content={props.postContent}
-        datetime={props.createdAt}
-        // img = {props.postImage}
-        userImage={props.author?.userImage}
-      />
+  
+return (
+  <div className="post-container">
+    <PostInfo
+      author={props.author}
+      content={props.postContent}
+      datetime={props.createdAt}
+    />
 
-      <div className="like-section">
-        <LikeButton youLike={youLike} ToggleYouLike={handleLikeToggle} />
-        <span>{likesCount} Likes</span>
-      </div>
-      <form method="post" onSubmit={handleSubmitComment}>
-        <input
-          placeholder="Add Comment!!"
-          value={commentContent}
-          onChange={handleCommentContentChange}
-          type="text"
-          name="fname"
-        />
-        <input type="submit" value="Submit" />
-      </form>
-
-      <div className="comments-section">
-        <Comment comments={comments} />
-      </div>
+    <div className="like-section">
+      <LikeButton youLike={youLike} ToggleYouLike={handleLikeToggle} />
+      <span className="likes-count">{likesCount} Likes</span>
     </div>
+
+    <div className="comments-section">
+      <Comment comments={comments} />
+    </div>
+
+    {error && <p className="comment-error">{error}</p>}
+
+    <form
+      className="add-comment-form"
+      method="post"
+      onSubmit={handleSubmitComment}
+    >
+      <input
+        className="add-comment-input"
+        placeholder="Add a comment..."
+        value={commentContent}
+        onChange={handleCommentContentChange}
+        type="text"
+        name="comment"
+      />
+      <input
+        className="add-comment-btn"
+        type="submit"
+        value="Post Comment"
+      />
+    </form>
+  </div>
 );
 };
 
