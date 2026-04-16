@@ -27,3 +27,22 @@
   border-radius: 6px;
   box-sizing: border-box; /* Crucial: ensures padding doesn't break the width */
 }
+
+.password-container {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.togglePassword {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 0;
+  font-size: 20px;
+  margin: 7.5px;
+}
+
+.password-container input {
+  width: 100%;
+}
