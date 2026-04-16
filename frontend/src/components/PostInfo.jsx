@@ -1,6 +1,12 @@
 import "./PostInfo.css";
+import { formatDistanceToNow } from "date-fns";
+
 
 const PostInfo = (props) => {
+   console.log("PROPS4--->", props)
+  const timeSincePosted = formatDistanceToNow(new Date(props.datetime), {
+    addSuffix: true,
+  });
   // We need to extract the string values from the object
   // We use "Optional Chaining" (?.) to prevent crashes if authorName is missing
   const displayName = props.author?.firstName 
@@ -25,7 +31,7 @@ const PostInfo = (props) => {
       
       {/* FOOTER: Date */}
       <p className="datetime">
-        <small>{props.datetime}</small>
+        <small>{timeSincePosted}</small>
       </p>
       
     </div>
