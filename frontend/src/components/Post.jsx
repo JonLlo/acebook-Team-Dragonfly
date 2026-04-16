@@ -7,7 +7,7 @@ import "./Post.css"
 
 const Post = (props) => {
   const [youLike, setYouLike] = useState(props.likedByCurrentUser); //need to get this from backend!!
-  const [likesCount, setLikesCount] = useState(props.likesCount);
+  const [likesCount, setLikesCount] = useState(props.likesCount ?? 0);
   const [comments, setComments] = useState(props.comments || []);
   const [commentContent, setCommentContent] = useState("");
   const [error, setError] = useState("");
