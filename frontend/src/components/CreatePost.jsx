@@ -4,6 +4,8 @@ import "./CreatePost.css";
 const CreatePost = (props) => {
   const [postContent, setPostContent] = useState("");
   const [postImage, setPostImage] = useState("");
+  const [error, setError] = useState("");
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -13,6 +15,11 @@ const CreatePost = (props) => {
       postContent: postContent,
       postImage: postImage || "",
     };
+
+    if (postContent.trim() === "") {
+      setError("Please enter a valid post");
+      return;
+    }
 
     try {
       const res = await fetch("http://localhost:3000/posts", {
@@ -43,6 +50,7 @@ const CreatePost = (props) => {
       // Clear form
       setPostContent("");
       setPostImage("");
+      setError("");
 
     } catch (error) {
       console.log("Post failed error:", error);
@@ -61,6 +69,7 @@ const CreatePost = (props) => {
               onChange={(event) => setPostContent(event.target.value)}
               rows="2"
             />
+            
           </div>
           <div className="submit-button">
             <button type="submit" className="addPost">
@@ -69,6 +78,7 @@ const CreatePost = (props) => {
           </div>
         </form>
       </div>
+      <div>{error && <p className="post-error">{error}</p>}</div>
     </div>
   );
 };
