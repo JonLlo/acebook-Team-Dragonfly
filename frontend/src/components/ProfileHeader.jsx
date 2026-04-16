@@ -38,6 +38,7 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
+
     try {
       const data = await updateUserProfile(user._id, formData);
       onProfileUpdated(data.user);
@@ -63,6 +64,7 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
             <div className="profile-header__field">
               <label htmlFor="firstName">First name</label>
               <input
+                className="profile-header__input"
                 id="firstName"
                 name="firstName"
                 value={formData.firstName}
@@ -70,9 +72,10 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
               />
             </div>
 
-            <div className="profile-heaader__field">
+            <div className="profile-header__field">
               <label htmlFor="surname">Surname</label>
               <input
+                className="profile-header__input"
                 id="surname"
                 name="surname"
                 value={formData.surname}
@@ -80,9 +83,10 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
               />
             </div>
 
-            <div className="profile-heaader__field">
+            <div className="profile-header__field">
               <label htmlFor="email">Email</label>
               <input
+                className="profile-header__input"
                 id="email"
                 name="email"
                 value={formData.email}
@@ -90,9 +94,10 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
               />
             </div>
 
-            <div className="profile-heaader__field">
+            <div className="profile-header__field">
               <label htmlFor="userBiography">Biography</label>
               <textarea
+                className="profile-header__textarea"
                 id="userBiography"
                 name="userBiography"
                 value={formData.userBiography}
@@ -100,10 +105,12 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
               />
             </div>
 
-            <button className="profile-header__button-row" type="submit">Save</button>
-            <button className="profile-header__button-row" type="button" onClick={handleCancel}>
-              Cancel
-            </button>
+            <div className="profile-header__button-row">
+              <button type="submit">Save</button>
+              <button type="button" onClick={handleCancel}>
+                Cancel
+              </button>
+            </div>
 
             {error && <p className="profile-header__error">{error}</p>}
           </form>
@@ -112,13 +119,27 @@ function ProfileHeader({ user, postsCount, onProfileUpdated }) {
             <h1>
               {user.firstName} {user.surname}
             </h1>
-            {user.userBiography && <p className="profile-header__bio">{user.userBiography}</p>}
-            <p className="profile-header__email">{user.email}</p>
-            <p className="profile-header__count">Posts: {postsCount}</p>
 
-            <button  className="profile-header__button-row"  type="button" onClick={handleEditClick}>
-              Edit profile
-            </button>
+            {user.userBiography && (
+              <p className="profile-header__bio">{user.userBiography}</p>
+            )}
+
+            <p className="profile-header__email">{user.email}</p>
+
+            <div className="profile-header__stats">
+              <div className="profile-header__stat">
+                <span className="profile-header__stat-number">{postsCount}</span>
+                <span className="profile-header__stat-label">
+                  {postsCount === 1 ? "Post" : "Posts"}
+                </span>
+              </div>
+            </div>
+
+            <div className="profile-header__button-row">
+              <button type="button" onClick={handleEditClick}>
+                Edit profile
+              </button>
+            </div>
 
             {error && <p className="profile-header__error">{error}</p>}
           </>
