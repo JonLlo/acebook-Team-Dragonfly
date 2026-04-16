@@ -9,6 +9,8 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState([]);
+
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -18,6 +20,7 @@ export function LoginPage() {
       navigate("/posts");
     } catch (err) {
       console.error(err);
+      setError(["Email or password not recognised."]);
       navigate("/login");
     }
   }
@@ -59,6 +62,11 @@ export function LoginPage() {
               value={password}
               onChange={handlePasswordChange}
             />
+          </div>
+          <div className="error-space">
+            { error.length > 0 && (
+              <p className="error-text">{error[0]}</p>
+            )}
           </div>
           <input
             role="submit-button"
