@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authentication";
 import "./SignupPage.css";
 import Navbar from "../../components/Navbar";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 
 export function SignupPage() {
   const [firstName, setFirstName] = useState("");
@@ -15,6 +17,7 @@ export function SignupPage() {
   const [userBiography, setUserBiography] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [showPasswordError, setPasswordErrorState] = useState(false);
   const [error, setError] = useState([]);
   const navigate = useNavigate();
@@ -193,15 +196,22 @@ export function SignupPage() {
 
           <div className="form-group">
             <label htmlFor="password">Password: </label>
-            <input
-              placeholder="Password"
-              id="password"
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
+            <div className="password-container">
+              <input
+                placeholder="Password"
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={handlePasswordChange}
+              />
+                <button
+                  className="togglePassword"
+                  type="button" 
+                  onClick={() => setShowPassword((prev) => !prev)}>
+                  {showPassword ? <FaEye /> : <FaEyeSlash /> }
+                </button>  
+            </div>
           </div>
-
           <div className="error-space">
             {!showPasswordError && error.length > 0 && (
               <p className="error-text">{error[0]}</p>

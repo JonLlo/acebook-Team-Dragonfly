@@ -4,11 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authentication";
 import "./LoginPage.css";
 import Navbar from "../../components/Navbar";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const [error, setError] = useState([]);
+
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -18,6 +22,7 @@ export function LoginPage() {
       navigate("/posts");
     } catch (err) {
       console.error(err);
+      setError(["Email or password not recognised."]);
       navigate("/login");
     }
   }
@@ -53,12 +58,26 @@ export function LoginPage() {
 
           <div className="form-group">
             <label htmlFor="password">Password:</label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
+
+            <div className="password-container">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={handlePasswordChange}
+              />
+              <button
+                className="togglePassword"
+                type="button" 
+                onClick={() => setShowPassword((prev) => !prev)}>
+                {showPassword ? <FaEye /> : <FaEyeSlash /> }
+              </button>  
+            </div>  
+          </div>
+          <div className="error-space">
+            { error.length > 0 && (
+              <p className="error-text">{error[0]}</p>
+            )}
           </div>
           <input
             role="submit-button"
