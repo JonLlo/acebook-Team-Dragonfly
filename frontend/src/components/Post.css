@@ -1,0 +1,80 @@
+.post-container {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto 24px;
+  padding: 0 0 16px;
+}
+
+.like-section {
+  width: 60%;
+  margin: -8px auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.likes-count {
+  color: #2f4f2f;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.add-comment-form {
+  width: 60%;
+  margin: 0 auto 14px;
+  background: #51a61d50;
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.add-comment-input {
+  width: 100%;
+  min-height: 50px;
+  background: #fbfcfb;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 15px;
+  color: #050000;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.add-comment-btn {
+  align-self: flex-end;
+  background-color: #000000;
+  color: #f6f4f0;
+  padding: 5px 20px;
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.add-comment-btn:hover {
+  color: #4a951c;
+}
+
+.comments-section {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s ease;
+  padding: 0 0 16px;
+}
+
+.comment-error {
+  width: 60%;
+  margin: 0 auto 12px;
+  color: #8b0000;
+  font-weight: 600;
+}
