@@ -8,9 +8,8 @@
   min-height: 25vh;
   margin: 0 auto 20px auto;
   border: 2px solid #4a951c;
-  border-radius: 5px;
-  background: #e5ece1;
-  box-sizing: border-box;
+  border-radius: 24px;
+  background: #e5ece1
 }
 
 .postHeader {
