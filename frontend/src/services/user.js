@@ -6,10 +6,13 @@ export async function updateUserProfile(userId, formData) {
   const response = await fetch(`${BACKEND_URL}/users/${userId}`, {
     method: "PATCH",
     headers: {
-      "Content-Type": "application/json",
+      // Removed the content-type header as JSON will be replaced 
+      // with FormData object so user file uploads can be handled.
+      // "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(formData),
+    body: formData,  // removed JSON.stringify as will be replaced with FormData object
+    // body: JSON.stringify(formData),
   });
 
   const data = await response.json();
