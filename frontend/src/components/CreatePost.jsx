@@ -62,7 +62,7 @@ const CreatePost = (props) => {
       <div className="submitForm">
         <form onSubmit={handleSubmit}>
           <div className="text-area-container">
-            <textarea
+            <input
               className="post-content"
               placeholder="What's on your mind?"
               value={postContent}
