@@ -7,11 +7,14 @@ async function create(req, res) {
     const {
       firstName,
       surname,
-      userImage,
+      // userImage, ---> need to remove userImage from req.body as it will be in req.file
       userBiography,
       email,
       password: plainTextPassword,
     } = req.body;
+
+    // if a file was uploaded use the filename, otherwise go with default
+    const userImage = req.file ? req.file.filename : undefined;
 
     const password = await bcrypt.hash(plainTextPassword, 10);
 
@@ -99,6 +102,9 @@ async function getUserProfile(req, res) {
 
 async function editUserProfile(req, res) {
   console.log("INSIDE EDITUSERPROFILE()");
+  console.log("REQ HEADERS:---->", req.headers['content-type']);
+  console.log("REQ FILE:---->", req.file);
+console.log("REQ FILES:---->", req.files);
   try {
     //check user requesting edit is the same as the looged in user
     const id = req.params.id;
@@ -114,14 +120,23 @@ async function editUserProfile(req, res) {
     const allowedFields = ["firstName", "surname", "userBiography"];
     const updatesTo = {};
 
+    console.log("REC FILE BEFORE: ---->", req.file);
     //check which fields the user would like to update and include them in the updatesTo object
-
     allowedFields.forEach((field) => {
       if (req.body[field] !== undefined) {
         updatesTo[field] = req.body[field];
       }
+
+      console.log("UPDATESTO AFTER", updatesTo);
+
     });
-    console.log("ALLOWED UPDATES: ---->", updatesTo);
+
+      // if the userImage file was uploaded, save the filename
+      if (req.file !== undefined) {
+        updatesTo["userImage"] = req.file.filename;
+      }
+      console.log("REC FILE AFTER: ---->", req.file);
+      console.log("ALLOWED UPDATES: ---->", updatesTo);
 
     const updatedProfile = await User.findByIdAndUpdate(
       req.user_id,
@@ -131,7 +146,10 @@ async function editUserProfile(req, res) {
       },
     ).select("-password"); //do not return password
 
+    console.log("UPDATED PROFILE: ---->", updatedProfile);
+
     res.status(200).json({ user: updatedProfile });
+    //console.log("RES.FILE---->", res)
   } catch (error) {
     res.status(500).json({ message: "Error updating user profile" });
   }

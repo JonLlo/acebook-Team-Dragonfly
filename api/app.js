@@ -17,8 +17,11 @@ app.use(cors());
 // Parse JSON request bodies, made available on `req.body`
 app.use(bodyParser.json());
 
-// API Routes
+// Static Files
+// Finds a file and sends it back to frontend
+app.use("/uploads", express.static("uploads"));
 
+// API Routes
 app.use("/tokens", authenticationRouter);
 app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);

@@ -31,10 +31,13 @@ export async function login(email, password) {
 export async function signup(payload) {
   const response = await fetch(`${BACKEND_URL}/users`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
+    // Removed the content-type header as JSON will be replaced with FormData object so user file uploads can be handled.
+    // headers: {
+    //   "Content-Type": "application/json",
+    
+    // },
+    body: payload,  // removed JSON.stringify as will be replaced with FormData object
+    // body: JSON.stringify(payload),
   });
 
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
