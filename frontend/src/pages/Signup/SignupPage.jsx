@@ -8,7 +8,10 @@ import Navbar from "../../components/Navbar";
 export function SignupPage() {
   const [firstName, setFirstName] = useState("");
   const [surname, setSurname] = useState("");
-  const [userImage, setUserImage] = useState("");
+  // Since it will now hold a File object or nothing, 
+  // it might be cleaner to initialise userImage as null
+  // const [userImage, setUserImage] = useState("");
+  const [userImage, setUserImage] = useState(null);
   const [userBiography, setUserBiography] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,15 +60,28 @@ export function SignupPage() {
 
     setError([]);
 
+    // build FormData object to send text fields 
+    // and file upload together to the backend
+    const formData = new FormData();
+
+    formData.append("firstName", firstName);
+    formData.append("surname", surname);
+    formData.append("userImage", userImage);
+    formData.append("userBiography", userBiography);
+    formData.append("email", email);
+    formData.append("password", password)
+
     try {
-      await signup({
-        firstName,
-        surname,
-        userImage,
-        userBiography,
-        email,
-        password,
-      });
+      await signup(formData)
+      // plain object has to go as now using FormData due to file upload
+      // await signup({
+      //   firstName,
+      //   surname,
+      //   userImage,
+      //   userBiography,
+      //   email,
+      //   password,
+      // });
       setPasswordErrorState(false);
       navigate("/login");
     } catch (err) {
@@ -83,8 +99,14 @@ export function SignupPage() {
     setSurname(event.target.value);
   }
 
+  // Need to change this function event.target.value does not work with file uploads
+  // function handleUserImageChange(event) {
+  //   setUserImage(event.target.value);
+  // }
+
+  //  This allows userImage to hold the file rather than a string
   function handleUserImageChange(event) {
-    setUserImage(event.target.value);
+    setUserImage(event.target.files[0])  // → the first file the user selected
   }
 
   function handleUserBiographyChange(event) {
@@ -138,10 +160,14 @@ export function SignupPage() {
           <div className="form-group">
             <label htmlFor="userImage">Profile picture:</label>
             <input
-              id="userImage"
-              type="text"
-              value={userImage}
-              onChange={handleUserImageChange}
+            // need to change type to file to handle userImage uploads
+              // id="userImage"
+              // type="text"
+              // value={userImage} // this needs to be removed as file inputs in React can't be controlled inputs
+              // onChange={handleUserImageChange}
+                id="userImage"
+                type="file"
+                onChange={handleUserImageChange}
             />
           </div>
 
